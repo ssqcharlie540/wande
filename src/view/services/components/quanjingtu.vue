@@ -3,8 +3,8 @@
   <div class="homePageContent">
     <div class="container">
       <!-- 1. h1标题 -->
-      <h1 class="main-title">生产车间</h1>
-      
+      <h1 class="main-title">{{title}}</h1>
+
       <!-- 全景图容器 -->
       <div id="panorama-viewer" ref="viewerContainer"></div>
     </div>
@@ -18,6 +18,12 @@ import "photo-sphere-viewer/dist/photo-sphere-viewer.css";
 
 const viewerContainer = ref(null);
 let viewer = null;
+const props = defineProps({
+  title: {
+    type: String,
+    default: "生产车间",
+  },
+});
 
 onMounted(() => {
   if (viewerContainer.value) {

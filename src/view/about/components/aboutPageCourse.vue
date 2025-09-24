@@ -47,7 +47,7 @@
               <!-- 内容 -->
               <div class="ml10">
                 <div class="list-desc">
-                  <div class="list-desc-text module-hover">
+                  <div class="list-desc-text module-hover1">
                     {{ activity.content }}
                   </div>
                 </div>

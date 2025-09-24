@@ -57,7 +57,7 @@ import { defineProps } from "vue";
 const props = defineProps({
   title: {
     type: String,
-    default: "我们的产品",
+    default: "",
   },
   productItems: {
     type: Array,

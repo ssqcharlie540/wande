@@ -3,11 +3,11 @@
   <div class="homePageContent">
     <div class="container">
       <!-- 1. h1标题 -->
-      <h1 class="main-title">合作客户</h1>
+      <h1 class="main-title">{{ title }}</h1>
       <!-- 2,内容 -->
       <!-- 将内容区域移到容器外，使其可以扩展到全宽 -->
     </div>
-    
+
     <!-- 全宽内容区域 -->
     <div class="full-width-content">
       <div class="container">
@@ -33,6 +33,10 @@
 <script setup>
 // 可以在这里添加组件逻辑
 const props = defineProps({
+  title: {
+    type: String,
+    default: "合作客户",
+  },
   heZuoKeHuData: {
     type: Array,
     default: () => [""],

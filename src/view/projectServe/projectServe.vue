@@ -1,7 +1,7 @@
 <template>
   <!-- 产品服务 -->
   <div class="homePage">
-    <div style="height: 8vh"></div>
+    <div style="height: 105px"></div>
     <proPageTop :data="projectData.proPageTopData" />
     <!-- 我们的产品及优势 -->
     <HomePageChanpin

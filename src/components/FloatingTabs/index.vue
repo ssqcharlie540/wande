@@ -1,5 +1,5 @@
 <template>
-  <!-- 信息栏 - 只在顶部显示 -->
+  <!-- 信息栏 - 只在顶部显示 选中的黄色字体色号：D8B280 -->
   <!-- <div class="message-container" :class="{ hidden: !isAtTop }">
     <Floatingmessage />
   </div> -->
@@ -198,7 +198,7 @@ const navigateTo = (path) => {
   margin: 0;
   padding: 0;
   transition: all 0.3s ease; /* 修改为all以包含背景变化 */
-  height: 8vh;
+  height: 105px; /* 关键修改：将8vh改为固定像素值 */
 
   /* 点状背景 */
   --dot-color: rgba(56, 56, 56, 0.7); /* 将这里的0.5改为更小的值增加透明度 */

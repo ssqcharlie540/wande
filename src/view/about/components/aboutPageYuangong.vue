@@ -3,7 +3,7 @@
   <div class="homePageContent">
     <div class="container">
       <!-- 1. h1标题 -->
-      <h1 class="main-title">员工风采</h1>
+      <h1 class="main-title">{{ title }}</h1>
 
       <!-- 图片展示区域 -->
       <div class="image-gallery">
@@ -44,6 +44,10 @@ const hoverIndex = ref(-1);
 
 // 从父组件传递过来的图片数据
 const props = defineProps({
+  title: {
+    type: String,
+    default: "员工风采",
+  },
   images: {
     type: Array,
     default: () => [],

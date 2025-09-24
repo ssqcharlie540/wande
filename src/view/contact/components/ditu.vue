@@ -1,9 +1,9 @@
-<!-- 模块模板 -->
+<!-- 公司地址 -->
 <template>
   <div class="homePageContent">
     <div class="container">
       <!-- 1. h1标题 -->
-      <h1 class="main-title">公司地址</h1>
+      <h1 class="main-title">{{ title }}</h1>
       <div class="content">
         <QQMap :gongsiData="gongsiData" />
       </div>
@@ -16,6 +16,10 @@ import { defineProps } from "vue";
 import QQMap from "@/components/QQMap/QQMap.vue";
 // 定义组件属性
 const props = defineProps({
+  title: {
+    type: String,
+    default: "公司地址",
+  },
   gongsiData: {
     type: Object,
     default: () => ({

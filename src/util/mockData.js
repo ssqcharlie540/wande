@@ -34,191 +34,207 @@ export const homeData = {
     ],
   },
   // 我们的产品
-  productsData: [
-    {
-      id: 1,
-      title: "阀口袋介绍",
-      description:
-        "阀口袋，俗称糊底袋，从顶部或底部阀口进料，采用专门灌装设备，灌装物料后自动形成长方体，具有灌装高效、堆包整齐、牢固可靠、运输方便、美观大方等特点。广泛应用于食用粉、化工粉末、化肥、合成材料、药品、矿物质等粉状或粒状的固体物料及柔性物品包装，超大尺寸阀口袋被广泛应用于气象法白炭黑行业及超细纳米级粉料的包装。是目前国际主流的环保型包装袋。",
-      image: "https://www.wandepack.com/api/getImage?image=sy_fakoudai.png",
-    },
-    {
-      id: 2,
-      title: "方底袋",
-      description:
-        "方底袋又称开口方底袋或单头糊底袋，袋子底部经过对齐折叠胶合，充填后呈矩形，贴上牢固的盖底纸能增加强度。平整的底部在灌装或充填时会立地平稳不易撒漏，具有环保性好、牢固度高、堆垛稳定、便于识别的特点，主要应用于食用粉及添加剂、化工粉末、饲料、塑料等行业的粉粒状产品，在包装行业运用十分广泛。",
-      image: "https://www.wandepack.com/api/getImage?image=sy_fangdidai.png",
-    },
-    {
-      id: 3,
-      title: "产品名称1",
-      subDescription: "PE阀口袋",
-      image:
-        "https://wandepack.com/image/default/9EF95DCF9354492884A63BEC8911DC31-6-2.png",
-    },
-    {
-      id: 4,
-      title: "产品名称2",
-      subDescription: "PE方底袋",
-      image:
-        "https://wandepack.com/image/default/9EF95DCF9354492884A63BEC8911DC31-6-2.png",
-    },
-    // {
-    //   id: 5,
-    //   title: "定制服务",
-    //   subDescription: "个性化定制解决方案",
-    //   image: "../../../assets/首页/产品2.png",
-    // },
-    // {
-    //   id: 6,
-    //   title: "快速交付",
-    //   subDescription: "高效的物流配送体系",
-    //   image: "../../../assets/首页/产品3.png",
-    // },
-  ],
+  productsData: {
+    title: "我们的产品",
+    productItems: [
+      {
+        id: 1,
+        title: "阀口袋介绍",
+        description:
+          "阀口袋，俗称糊底袋，从顶部或底部阀口进料，采用专门灌装设备，灌装物料后自动形成长方体，具有灌装高效、堆包整齐、牢固可靠、运输方便、美观大方等特点。广泛应用于食用粉、化工粉末、化肥、合成材料、药品、矿物质等粉状或粒状的固体物料及柔性物品包装，超大尺寸阀口袋被广泛应用于气象法白炭黑行业及超细纳米级粉料的包装。是目前国际主流的环保型包装袋。",
+        image: "https://www.wandepack.com/api/getImage?image=sy_fakoudai.png",
+      },
+      {
+        id: 2,
+        title: "方底袋",
+        description:
+          "方底袋又称开口方底袋或单头糊底袋，袋子底部经过对齐折叠胶合，充填后呈矩形，贴上牢固的盖底纸能增加强度。平整的底部在灌装或充填时会立地平稳不易撒漏，具有环保性好、牢固度高、堆垛稳定、便于识别的特点，主要应用于食用粉及添加剂、化工粉末、饲料、塑料等行业的粉粒状产品，在包装行业运用十分广泛。",
+        image: "https://www.wandepack.com/api/getImage?image=sy_fangdidai.png",
+      },
+      {
+        id: 3,
+        title: "产品名称1",
+        subDescription: "PE阀口袋",
+        image:
+          "https://wandepack.com/image/default/9EF95DCF9354492884A63BEC8911DC31-6-2.png",
+      },
+      {
+        id: 4,
+        title: "产品名称2",
+        subDescription: "PE方底袋",
+        image:
+          "https://wandepack.com/image/default/9EF95DCF9354492884A63BEC8911DC31-6-2.png",
+      },
+      // {
+      //   id: 5,
+      //   title: "定制服务",
+      //   subDescription: "个性化定制解决方案",
+      //   image: "../../../assets/首页/产品2.png",
+      // },
+      // {
+      //   id: 6,
+      //   title: "快速交付",
+      //   subDescription: "高效的物流配送体系",
+      //   image: "../../../assets/首页/产品3.png",
+      // },
+    ],
+  },
   // 产品优势数据tab
-  tabsData: [
-    {
-      title: "密封性好",
-      inactiveIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_mfxh_1.png",
-      activeIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_mfxh_2.png",
-      content:
-        "我们的产品采用先进的密封技术，确保包装完全密封，有效防止空气、水分和污染物进入，延长产品保质期。",
-    },
-    {
-      title: "美观性",
-      inactiveIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_mgx_1.png",
-      activeIcon: "https://www.wandepack.com/api/getImage?image=cpys_mgx_2.png",
-      content:
-        "设计精美，外观时尚，提升产品档次和品牌形象，让您的产品在货架上脱颖而出，吸引消费者目光。",
-    },
-    {
-      title: "提高包装效率",
-      inactiveIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_tgbzxl_1.png",
-      activeIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_tgbzxl_2.png",
-      content:
-        "自动化包装流程，大幅提高包装速度，减少人工成本，提高生产效率，满足大批量生产需求。",
-    },
-    {
-      title: "方便运输",
-      inactiveIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_fbys_1.png",
-      activeIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_fbys_2.png",
-      content:
-        "轻量化设计，结构合理，便于堆叠和搬运，降低运输成本，减少运输过程中的损坏风险。",
-    },
-    {
-      title: "牢固性强",
-      inactiveIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_lgxq_1.png",
-      activeIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_lgxq_2.png",
-      content:
-        "采用高强度材料和加固结构，确保包装在运输和存储过程中不变形、不破损，保护产品完整性。",
-    },
-    {
-      title: "防潮防水",
-      inactiveIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_fcfs_1.png",
-      activeIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_fcfs_2.png",
-      content:
-        "特殊防潮防水处理，有效阻隔水分侵入，保护产品免受潮湿环境影响，特别适合食品、电子产品等。",
-    },
-    {
-      title: "绿色环保",
-      inactiveIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_lshb_1.png",
-      activeIcon:
-        "https://www.wandepack.com/api/getImage?image=cpys_lshb_2.png",
-      content:
-        "采用可回收、可降解的环保材料，减少环境污染，符合国家环保标准，助力企业实现可持续发展。",
-    },
-  ],
+  tabsData: {
+    title: "产品优势",
+    tabsItem: [
+      {
+        title: "密封性好",
+        inactiveIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_mfxh_1.png",
+        activeIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_mfxh_2.png",
+        content:
+          "我们的产品采用先进的密封技术，确保包装完全密封，有效防止空气、水分和污染物进入，延长产品保质期。",
+      },
+      {
+        title: "美观性",
+        inactiveIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_mgx_1.png",
+        activeIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_mgx_2.png",
+        content:
+          "设计精美，外观时尚，提升产品档次和品牌形象，让您的产品在货架上脱颖而出，吸引消费者目光。",
+      },
+      {
+        title: "提高包装效率",
+        inactiveIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_tgbzxl_1.png",
+        activeIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_tgbzxl_2.png",
+        content:
+          "自动化包装流程，大幅提高包装速度，减少人工成本，提高生产效率，满足大批量生产需求。",
+      },
+      {
+        title: "方便运输",
+        inactiveIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_fbys_1.png",
+        activeIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_fbys_2.png",
+        content:
+          "轻量化设计，结构合理，便于堆叠和搬运，降低运输成本，减少运输过程中的损坏风险。",
+      },
+      {
+        title: "牢固性强",
+        inactiveIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_lgxq_1.png",
+        activeIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_lgxq_2.png",
+        content:
+          "采用高强度材料和加固结构，确保包装在运输和存储过程中不变形、不破损，保护产品完整性。",
+      },
+      {
+        title: "防潮防水",
+        inactiveIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_fcfs_1.png",
+        activeIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_fcfs_2.png",
+        content:
+          "特殊防潮防水处理，有效阻隔水分侵入，保护产品免受潮湿环境影响，特别适合食品、电子产品等。",
+      },
+      {
+        title: "绿色环保",
+        inactiveIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_lshb_1.png",
+        activeIcon:
+          "https://www.wandepack.com/api/getImage?image=cpys_lshb_2.png",
+        content:
+          "采用可回收、可降解的环保材料，减少环境污染，符合国家环保标准，助力企业实现可持续发展。",
+      },
+    ],
+  },
   // 产品应用领域
-  contentData: [
-    {
-      image: "https://www.wandepack.com/api/getImage?image=cpyyly_1_tanhei.png",
-      caption: "炭黑",
-    },
-    {
-      image:
-        "https://www.wandepack.com/api/getImage?image=cpyyly_2_wuyanmei.png",
-      caption: "无烟煤",
-    },
-    {
-      image:
-        "https://www.wandepack.com/api/getImage?image=cpyyly_3_xiangjiao.png",
-      caption: "橡胶化合物",
-    },
-    {
-      image:
-        "https://www.wandepack.com/api/getImage?image=cpyyly_4_guolvcailiao.png",
-      caption: "过滤材料",
-    },
-    {
-      image: "https://www.wandepack.com/api/getImage?image=cpyyly_5_shuzhi.png",
-      caption: "树脂",
-    },
-    {
-      image:
-        "https://www.wandepack.com/api/getImage?image=cpyyly_6_taibaifen.png",
-      caption: "钛白粉",
-    },
-    {
-      image: "https://www.wandepack.com/api/getImage?image=cpyyly_7_PE_PVC.png",
-      caption: "PE和PVC树脂",
-    },
-    {
-      image:
-        "https://www.wandepack.com/api/getImage?image=cpyyly_8_cuihuaji.png",
-      caption: "催化剂",
-    },
-    {
-      image:
-        "https://www.wandepack.com/api/getImage?image=cpyyly_9_feiliao.png",
-      caption: "肥料",
-    },
-    {
-      image:
-        "https://www.wandepack.com/api/getImage?image=cpyyly_10_gongyesha.png",
-      caption: "工业砂",
-    },
-    {
-      image:
-        "https://www.wandepack.com/api/getImage?image=cpyyly_11_naihuocailiao.png",
-      caption: "耐火材料",
-    },
-    {
-      image:
-        "https://www.wandepack.com/api/getImage?image=cpyyly_12_lajuhewu.png",
-      caption: "蜡聚合物",
-    },
-  ],
+  contentData: {
+    title: "产品应用领域",
+    contentItem: [
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_1_tanhei.png",
+        caption: "炭黑",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_2_wuyanmei.png",
+        caption: "无烟煤",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_3_xiangjiao.png",
+        caption: "橡胶化合物",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_4_guolvcailiao.png",
+        caption: "过滤材料",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_5_shuzhi.png",
+        caption: "树脂",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_6_taibaifen.png",
+        caption: "钛白粉",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_7_PE_PVC.png",
+        caption: "PE和PVC树脂",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_8_cuihuaji.png",
+        caption: "催化剂",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_9_feiliao.png",
+        caption: "肥料",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_10_gongyesha.png",
+        caption: "工业砂",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_11_naihuocailiao.png",
+        caption: "耐火材料",
+      },
+      {
+        image:
+          "https://www.wandepack.com/api/getImage?image=cpyyly_12_lajuhewu.png",
+        caption: "蜡聚合物",
+      },
+    ],
+  },
   // 合作客户
-  heZuoKeHuData: [
-    "https://www.wandepack.com/api/getImage?image=hzhb_zh_1.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_hm_2.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_dghg_3.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_xx_4.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_5.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_6.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_7.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_8.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_9.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_10.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_11.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_12.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_13.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_14.jpg",
-    "https://www.wandepack.com/api/getImage?image=hzhb_15.jpg",
-  ],
+  heZuoKeHuData: {
+    title: "合作客户",
+    heZuoKeHuItem: [
+      "https://www.wandepack.com/api/getImage?image=hzhb_zh_1.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_hm_2.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_dghg_3.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_xx_4.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_5.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_6.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_7.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_8.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_9.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_10.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_11.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_12.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_13.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_14.jpg",
+      "https://www.wandepack.com/api/getImage?image=hzhb_15.jpg",
+    ],
+  },
 };
 // 关于万德
 export const aboutData = {
@@ -420,20 +436,23 @@ export const aboutData = {
     },
   },
   // 员工风采
-  employeeImages: [
-    {
-      src: "https://wandepack.com/image/default/19CB1CFFE69B4CA3806B153CD545AD1D-6-2.jpg",
-      alt: "员工活动照片1",
-    },
-    {
-      src: "https://wandepack.com/image/default/CE72DF2FAC1F436D82D3626BFECF5C0B-6-2.jpg",
-      alt: "员工活动照片2",
-    },
-    {
-      src: "https://wandepack.com/image/default/816A84B52DDA41E4ACAC6072D5CEA084-6-2.jpg",
-      alt: "员工活动照片3",
-    },
-  ],
+  employeeImagesData: {
+    title: "员工风采",
+    employeeImagesItem: [
+      {
+        src: "https://wandepack.com/image/default/19CB1CFFE69B4CA3806B153CD545AD1D-6-2.jpg",
+        alt: "员工活动照片1",
+      },
+      {
+        src: "https://wandepack.com/image/default/CE72DF2FAC1F436D82D3626BFECF5C0B-6-2.jpg",
+        alt: "员工活动照片2",
+      },
+      {
+        src: "https://wandepack.com/image/default/816A84B52DDA41E4ACAC6072D5CEA084-6-2.jpg",
+        alt: "员工活动照片3",
+      },
+    ],
+  },
   // 资质及荣誉
   gongsizizhiData: {
     title: "我们的资质及荣誉",
@@ -517,6 +536,29 @@ export const aboutData = {
     backgroundImage:
       "https://wandepack.com/image/default/DCFD868FB31744B4BB30914F587C6784-6-2.jpg",
   },
+  // 锚点 数据 href不可修改
+  anchorlinkData: [
+    {
+      title: "公司简介",
+      href: "#aboutPageBrief",
+    },
+    {
+      title: "创新历程",
+      href: "#aboutPageCourse",
+    },
+    {
+      title: "公司文化",
+      href: "#aboutPageBrief2",
+    },
+    {
+      title: "员工风采",
+      href: "#aboutPageBrief3",
+    },
+    {
+      title: "我们的资质及荣誉",
+      href: "#aboutPageBrief4",
+    },
+  ],
 };
 // 产品及服务
 export const projectData = {
@@ -754,8 +796,33 @@ export const contactData = {
   },
   // 公司位置和坐标
   gongsiData: {
+    title: "公司位置",
     gongsilatlng: { lat: 35.948993, lng: 114.452938 },
     gongsiLocation: "河南省安阳市汤阴县万德包装有限公司",
+  },
+  // 留言
+  liuyanData: {
+    // 标题
+    title: "联系我们",
+    // 表单输入框内提示
+    fields: {
+      name: "您的姓名",
+      email: "电子邮箱",
+      contact: "手机号码",
+      company: "工作单位",
+      content: "留言内容",
+    },
+    // 立即提交文字
+    submitText: "立即提交",
+    // 提交成功弹窗
+    dialogTitle: "感谢",
+    dialogMessage: "您的留言已提交成功！",
+    // 表单验证信息 {field} {maxLength} 不可更换
+    validationMessages: {
+      required: "请填写{field}",
+      maxLength: "内容不能超过{maxLength}个字",
+      emailInvalid: "邮箱格式不正确", // 仅邮箱校验格式使用
+    },
   },
 };
 
@@ -767,4 +834,5 @@ export const qjzsData = {
     backgroundImg:
       "https://wandepack.com/image/default/2A34A62DECC54B8987270561C989AAC5-6-2.png",
   },
+  qjzsTitle: "生产车间",
 };

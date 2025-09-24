@@ -14,7 +14,7 @@
         v-for="(tab, index) in tabs"
         :key="index"
         :class="['tab', { active: activeTab === index }]"
-        @click="changeTab(index)"
+        @mouseenter="changeTab(index)"
       >
         {{ tab.name }}
       </div>

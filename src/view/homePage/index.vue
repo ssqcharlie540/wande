@@ -24,15 +24,24 @@
     <homepageGongsi :pageData="homeData.pageData" />
     <!-- 我们的产品 -->
     <HomePageChanpin
-      title="我们的产品"
-      :product-items="homeData.productsData"
+      :title="homeData.productsData.title"
+      :product-items="homeData.productsData.productItems"
     />
     <!-- 产品优势 -->
-    <HomePageChanpinYoushi :tabsData="homeData.tabsData" />
+    <HomePageChanpinYoushi
+      :title="homeData.tabsData.title"
+      :tabsData="homeData.tabsData.tabsItem"
+    />
     <!-- 产品应用领域 -->
-    <homePageContent2 :contentData="homeData.contentData" />
+    <homePageContent2
+      :title="homeData.contentData.title"
+      :contentData="homeData.contentData.contentItem"
+    />
     <!-- 合作客户 -->
-    <homePageHeZuoKeHu :heZuoKeHuData="homeData.heZuoKeHuData" />
+    <homePageHeZuoKeHu
+      :title="homeData.heZuoKeHuData.title"
+      :heZuoKeHuData="homeData.heZuoKeHuData.heZuoKeHuItem"
+    />
     <!-- 底部 -->
     <PageBottom :footerData="footerData" />
   </div>

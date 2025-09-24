@@ -5,7 +5,7 @@
   >
     <div class="container">
       <!-- 1. h1标题 -->
-      <h1 class="main-title">{{ props.title }}</h1>
+      <h1 class="main-title">{{ title }}</h1>
       <div class="content">
         <!-- 图片滑动组件 -->
         <div

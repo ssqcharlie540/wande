@@ -1,15 +1,17 @@
 <template>
   <!-- 关于万德 -->
   <div class="homePage">
-    <div style="height: 8vh"></div>
+    <div style="height: 105px"></div>
 
     <!-- 固定在右侧的锚点 -->
     <div class="anchor-container">
       <el-anchor class="fixed-anchor" :offset="100" @change="handleChange">
-        <el-anchor-link href="#aboutPageBrief" title="公司简介" />
-        <el-anchor-link href="#aboutPageCourse" title="创新历程" />
-        <el-anchor-link href="#aboutPageBrief2" title="公司文化" />
-        <el-anchor-link href="#aboutPageBrief3" title="员工风采" />
+        <el-anchor-link
+          v-for="(item, index) in aboutData.anchorlinkData"
+          :key="index"
+          :href="item.href"
+          :title="item.title"
+        />
       </el-anchor>
     </div>
 
@@ -32,9 +34,13 @@
     </div>
     <div id="aboutPageBrief3">
       <!-- 员工风采 -->
-      <aboutPageYuangong :images="aboutData.employeeImages" />
+      <aboutPageYuangong
+        :title="aboutData.employeeImagesData.title"
+        :images="aboutData.employeeImagesData.employeeImagesItem"
+      />
     </div>
-    <div id="aboutPageBrief3">
+    <!-- 我们的资质及荣誉 -->
+    <div id="aboutPageBrief4">
       <aboutPageGongsizizhi
         :images="aboutData.gongsizizhiData.images"
         :title="aboutData.gongsizizhiData.title"

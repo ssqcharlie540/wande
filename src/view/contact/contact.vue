@@ -1,12 +1,17 @@
 <template>
   <div class="homePage">
-    <div style="height: 8vh"></div>
+    <div style="height: 105px"></div>
     <!-- 顶部关于万德 -->
     <aboutPageTop :data="contactData.aboutTopImg" />
     <!-- 联系方式 -->
     <lianxifangshi :contact-data="contactData.lianxifangshi" />
     <!-- 地图 -->
-    <ditu :gongsiData="contactData.gongsiData" />
+    <ditu
+      :title="contactData.gongsiData.title"
+      :gongsiData="contactData.gongsiData"
+    />
+    <!-- 给我们留言 -->
+    <lliuYan :config="contactData.liuyanData" />
     <!--  公司资质 -->
     <!-- <Gongsizizhi
       :images="contactData.gongsizizhiData.gongsizizhiimages"
@@ -21,6 +26,7 @@
 import aboutPageTop from "@/view/about/components/aboutPageTop.vue"; // 顶部关于万德
 import lianxifangshi from "./components/lianxifangshi.vue"; // 联系方式
 import ditu from "./components/ditu.vue"; // 地图
+import lliuYan from "./components/lliuYan.vue"; // 给我们留言
 // import Gongsizizhi from "./components/gongsizizhi.vue"; // 公司资质
 import PageBottom from "@/components/PageBottom/index.vue"; // 底部
 import { contactData, footerData } from "@/util/mockData.js";

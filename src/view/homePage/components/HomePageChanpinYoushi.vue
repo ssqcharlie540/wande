@@ -3,7 +3,7 @@
   <div class="homePageContent">
     <div class="container">
       <!-- 1. h1标题 -->
-      <h1 class="main-title">产品优势</h1>
+      <h1 class="main-title">{{ title }}</h1>
 
       <!-- Tab栏 -->
       <div class="tabs-container">
@@ -12,7 +12,7 @@
           :key="index"
           class="tab-item"
           :class="{ active: activeTab === index }"
-          @click="activeTab = index"
+          @mouseenter="activeTab = index"
         >
           <div class="tab-icon">
             <img
@@ -43,6 +43,10 @@
 <script setup>
 import { ref } from "vue";
 const props = defineProps({
+  title: {
+    type: String,
+    default: "",
+  },
   tabsData: {
     type: Array,
     required: true,
