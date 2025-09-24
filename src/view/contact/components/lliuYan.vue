@@ -54,7 +54,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                  <el-form-item prop="name3" :label-width="formLabelWidth">
+                  <el-form-item  :label-width="formLabelWidth">
                     <el-input
                       class="input-item"
                       :placeholder="config.fields.company"
@@ -67,7 +67,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item prop="name4" :label-width="formLabelWidth">
+                  <el-form-item  :label-width="formLabelWidth">
                     <el-input
                       style="height: 160px"
                       :placeholder="config.fields.content"
