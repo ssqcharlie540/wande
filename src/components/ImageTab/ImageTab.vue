@@ -1,63 +1,66 @@
 <template>
   <div class="image-carousel-container">
-    <div class="carousel-main" :style="{ height: height }">
-      <div class="custom-carousel">
-        <div class="carousel-track">
-          <div
-            v-for="(image, index) in images"
-            :key="index"
-            class="carousel-slide"
-            :class="{
-              active: currentIndex === index,
-              prev: previousIndex === index,
-            }"
-          >
-            <div class="carousel-image-container">
-              <img
-                :src="getImageUrl(image.url)"
-                :alt="image.alt || 'Carousel image'"
-                class="carousel-image"
-              />
+    <div class="carousel-wrapper">
+      <div class="carousel-main" :style="{ height: height }">
+        <div class="custom-carousel">
+          <div class="carousel-track">
+            <div
+              v-for="(image, index) in images"
+              :key="index"
+              class="carousel-slide"
+              :class="{
+                active: currentIndex === index,
+                prev: previousIndex === index,
+              }"
+            >
+              <div class="carousel-image-container">
+                <img
+                  :src="getImageUrl(image.url)"
+                  :alt="image.alt || 'Carousel image'"
+                  class="carousel-image"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- 左右切换箭头 -->
-        <div class="carousel-arrow carousel-arrow-prev" @click="prevSlide">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-          </svg>
+          <!-- 左右切换箭头 -->
+          <div class="carousel-arrow carousel-arrow-prev" @click="prevSlide">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            </svg>
+          </div>
+          <div class="carousel-arrow carousel-arrow-next" @click="nextSlide">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+            </svg>
+          </div>
         </div>
-        <div class="carousel-arrow carousel-arrow-next" @click="nextSlide">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
-          </svg>
+      </div>
+
+      <div class="thumbnail-indicators">
+        <div
+          v-for="(image, index) in props.images"
+          :key="index"
+          :class="['thumbnail-item', { active: currentIndex === index }]"
+          @click="switchToSlide(index)"
+        >
+          <img
+            :src="getImageUrl(image.url)"
+            :alt="'Thumbnail ' + (index + 1)"
+            class="thumbnail-image"
+          />
         </div>
       </div>
     </div>
 
-    <div class="thumbnail-indicators">
-      <div
-        v-for="(image, index) in props.images"
-        :key="index"
-        :class="['thumbnail-item', { active: currentIndex === index }]"
-        @click="switchToSlide(index)"
-      >
-        <img
-          :src="getImageUrl(image.url)"
-          :alt="'Thumbnail ' + (index + 1)"
-          class="thumbnail-image"
-        />
-      </div>
-    </div>
     <div class="Title">
       <div class="TitleContent">{{ props.title }}</div>
     </div>
@@ -143,11 +146,8 @@ onMounted(() => {
   margin: 0;
 
   .carousel-main {
-    // border-radius: 12px;
     overflow: hidden;
-    // box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     position: relative;
-    // height: 60vh;
     width: 100%;
 
     .custom-carousel {
@@ -334,38 +334,6 @@ onMounted(() => {
       font-size: 40px;
       color: #fff;
     }
-  }
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .image-carousel-container {
-    padding: 10px;
-  }
-
-  .carousel-main {
-    margin-bottom: 15px;
-    height: 400px !important;
-  }
-
-  .thumbnail-item {
-    width: 60px;
-    height: 45px;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-main {
-    height: 300px !important;
-  }
-
-  .thumbnail-item {
-    width: 50px;
-    height: 38px;
-  }
-
-  .thumbnail-indicators {
-    gap: 8px;
   }
 }
 </style>

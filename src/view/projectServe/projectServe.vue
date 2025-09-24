@@ -32,7 +32,7 @@ import { projectData, footerData } from "@/util/mockData";
 .homePage {
   position: relative;
   .proPageBottomCla {
-    height: calc(70vh + 160px);
+    height: calc(85vh);
   }
 }
 </style>
