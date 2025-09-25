@@ -1,13 +1,35 @@
 <template>
   <!-- 顶部tab -->
-  <FloatingTabs />
+  <FloatingTabs :tabsData="tabsData" />
   <div class="content">
     <router-view></router-view>
   </div>
 </template>
 
 <script setup>
+import { onMounted, ref, provide } from "vue";
+import { getWebDatas } from "@/api/general";
 import FloatingTabs from "@/components/FloatingTabs/index.vue";
+const resDataNumber1 = ref(null);
+provide("resDataNumber1", resDataNumber1);
+// 获取数据
+const tabsData = ref([]);
+const submitData = async () => {
+  try {
+    const resData = await getWebDatas({
+      pageNumber: 1,
+      language: "zh",
+    });
+    tabsData.value = resData.tabsData;
+    resDataNumber1.value = resData;
+    console.log("提交结果:", resData);
+  } catch (error) {
+    console.error("提交失败:", error);
+  }
+};
+onMounted(() => {
+  submitData();
+});
 </script>
 
 <style scoped>

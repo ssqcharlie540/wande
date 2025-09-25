@@ -11,12 +11,11 @@ export default defineConfig({
   },
   server: {
     port: 443, // 确保端口与浏览器中一致
-     host: true, // 允许外部访问
     proxy: {
       "/api": {
-        target: "https://wandepack.com", // 你的后端地址
+        target: "https://www.wandepack.com", // 你的后端地址
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), 
+        rewrite: (path) => path.replace(/^\/api/, ""),
         // 如果后端不需要/api前缀，使用：rewrite: (path) => path.replace(/^\/api/, '')
       },
     },

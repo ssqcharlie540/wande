@@ -18,7 +18,7 @@
                   <el-form-item prop="name" :label-width="formLabelWidth">
                     <el-input
                       class="input-item"
-                      :placeholder="config.fields.name"
+                      :placeholder="config.fields?.name"
                       v-model="formModel.name"
                       autocomplete="off"
                       maxlength="50"
@@ -31,7 +31,7 @@
                   <el-form-item prop="name1" :label-width="formLabelWidth">
                     <el-input
                       class="input-item"
-                      :placeholder="config.fields.email"
+                      :placeholder="config.fields?.email"
                       v-model="formModel.name1"
                       autocomplete="off"
                       maxlength="50"
@@ -44,7 +44,7 @@
                   <el-form-item prop="name2" :label-width="formLabelWidth">
                     <el-input
                       class="input-item"
-                      :placeholder="config.fields.contact"
+                      :placeholder="config.fields?.contact"
                       v-model="formModel.name2"
                       autocomplete="off"
                       maxlength="50"
@@ -57,7 +57,7 @@
                   <el-form-item  :label-width="formLabelWidth">
                     <el-input
                       class="input-item"
-                      :placeholder="config.fields.company"
+                      :placeholder="config.fields?.company"
                       v-model="formModel.name3"
                       autocomplete="off"
                       maxlength="50"
@@ -70,7 +70,7 @@
                   <el-form-item  :label-width="formLabelWidth">
                     <el-input
                       style="height: 160px"
-                      :placeholder="config.fields.content"
+                      :placeholder="config.fields?.content"
                       v-model="formModel.name4"
                       autocomplete="off"
                       maxlength="1000"
@@ -86,7 +86,7 @@
                     round
                     @click="onSubmit"
                     size="large"
-                    >{{ config.submitText }}</el-button
+                    >{{ config?.submitText }}</el-button
                   >
                 </el-col>
               </el-row>
@@ -148,7 +148,7 @@ const formRef = ref(null);
 const generateRule = (fieldName, maxLength = 50) => [
   {
     required: true,
-    message: mergedConfig.value.validationMessages.required.replace(
+    message: mergedConfig.value.validationMessages.required?.replace(
       "{field}",
       fieldName
     ),
@@ -157,7 +157,7 @@ const generateRule = (fieldName, maxLength = 50) => [
   {
     min: 1,
     max: maxLength,
-    message: mergedConfig.value.validationMessages.maxLength.replace(
+    message: mergedConfig.value.validationMessages.maxLength?.replace(
       "{maxLength}",
       maxLength
     ),

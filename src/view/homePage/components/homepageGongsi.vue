@@ -3,26 +3,26 @@
   <div class="homePageContent">
     <div class="container">
       <!-- 1. h1标题 -->
-      <h1 class="main-title">{{ pageData.title }}</h1>
+      <h1 class="main-title">{{ pageData?.title }}</h1>
 
       <!-- 公司描述文字 -->
       <div class="company-description">
-        {{ pageData.description }}
+        {{ pageData?.description }}
         <span
-          v-for="(word, index) in pageData.highlightWords"
+          v-for="(word, index) in pageData?.highlightWords"
           :key="index"
           class="highlight-text"
         >
           {{ word }}{{ index < pageData.highlightWords.length - 1 ? "、" : "" }}
         </span>
-        {{ pageData.description2 }}
+        {{ pageData?.description2 }}
       </div>
 
       <!-- 图片展示区 -->
       <div class="image-gallery">
         <div
           class="image-item "
-          v-for="(item, index) in pageData.galleryItems"
+          v-for="(item, index) in pageData?.galleryItems"
           :key="index"
           :style="{ marginTop: index % 2 === 0 ? '0' : '40px' }"
         >
@@ -32,7 +32,7 @@
               :alt="item.title"
               class="rect-image"
             /> -->
-            <el-image class="img-hover" :src="getImageUrl(item.image)" fit="fill" />
+            <el-image class="img-hover" :src="getImageUrl(item?.image)" fit="fill" />
             <!-- <div class="image-description">
               <h3>{{ item.title }}</h3>
               <p>{{ item.description }}</p>

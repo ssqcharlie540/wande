@@ -32,7 +32,7 @@
       <div class="tab-content">
         <transition name="fade" mode="out-in">
           <div :key="activeTab" class="content-item">
-            <p>{{ tabsData[activeTab].content }}</p>
+            <p>{{ tabsData[activeTab]?.content }}</p>
           </div>
         </transition>
       </div>

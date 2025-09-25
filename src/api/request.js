@@ -1,23 +1,13 @@
 import axios from "axios";
 import { ElMessage } from "element-plus";
 
-// 开发环境使用代理，生产环境使用真实URL
-// const isDevelopment = import.meta.env.ENV === "development";
-// const baseURL = isDevelopment ? "/api" : "https://wandepack.com";
-
 const service = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "https://wandepack.com", // 添加默认值
+  baseURL: import.meta.env.VITE_API_URL || "https://www.wandepack.com", // 添加默认值
   // baseURL:"https://wandepack.com/api", // 添加默认值
- 
+
   timeout: 180000,
   headers: { "Content-Type": "application/json;charset=utf-8" },
 });
-// const service = axios.create({
-//   // 临时直接使用后端地址（仅用于测试）
-//   baseURL: "https://wandepack.com",
-//   timeout: 180000,
-//   headers: { "Content-Type": "application/json;charset=utf-8" },
-// });
 
 // 请求拦截器 - 添加详细日志
 service.interceptors.request.use(
@@ -47,10 +37,11 @@ service.interceptors.response.use(
     });
 
     const { data } = response;
+    console.log("Response Data:", data);
 
     // 根据你的API结构调整
-    if (data.code === 200 || data.success) {
-      return data;
+    if (data.status === "success") {
+      return data.data;
     } else {
       ElMessage.error(data.message || "请求失败");
       return Promise.reject(new Error(data.message || "请求失败"));

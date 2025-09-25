@@ -2,7 +2,7 @@
   <!-- 首页 -->
   <div class="homePage">
     <VideoBackground
-      videoSrc="https://wandepack.com/sv/2f7d4482-198f898b242/2f7d4482-198f898b242.mp4"
+      :videoSrc="videoSrc"
       :fadeDuration="3000"
       poster="src\assets\wande_logo.png"
       :autoplay="true"
@@ -21,26 +21,26 @@
     </VideoBackground>
 
     <!-- 公司介绍 -->
-    <homepageGongsi :pageData="homeData.pageData" />
+    <homepageGongsi :pageData="homeData?.pageData" />
     <!-- 我们的产品 -->
     <HomePageChanpin
-      :title="homeData.productsData.title"
-      :product-items="homeData.productsData.productItems"
+      :title="homeData?.productsData?.title"
+      :product-items="homeData?.productsData?.productItems"
     />
     <!-- 产品优势 -->
     <HomePageChanpinYoushi
-      :title="homeData.tabsData.title"
-      :tabsData="homeData.tabsData.tabsItem"
+      :title="homeData?.tabsData?.title"
+      :tabsData="homeData?.tabsData?.tabsItem"
     />
     <!-- 产品应用领域 -->
     <homePageContent2
       :title="homeData?.contentData.title"
-      :contentData="homeData.contentData.contentItem"
+      :contentData="homeData?.contentData?.contentItem"
     />
     <!-- 合作客户 -->
     <homePageHeZuoKeHu
-      :title="homeData.heZuoKeHuData.title"
-      :heZuoKeHuData="homeData.heZuoKeHuData.heZuoKeHuItem"
+      :title="homeData?.heZuoKeHuData?.title"
+      :heZuoKeHuData="homeData?.heZuoKeHuData?.heZuoKeHuItem"
     />
     <!-- 底部 -->
     <PageBottom :footerData="footerData" />
@@ -48,8 +48,8 @@
 </template>
 
 <script setup >
-import { onMounted } from "vue";
-import { post,get } from "@/api/request";
+import { onMounted, ref, inject, watch } from "vue";
+import { getWebDatas } from "@/api/general";
 import aliplayer from "./components/homePagealiplayer.vue";
 
 import VideoBackground from "@/components/videoBack/index.vue";
@@ -59,22 +59,27 @@ import HomePageChanpinYoushi from "./components/HomePageChanpinYoushi.vue"; // �
 import homePageContent2 from "./components/homePageContene2.vue"; // 产品应用领域
 import homePageHeZuoKeHu from "./components/homePageHeZuoKeHu.vue"; // 合作客户
 import PageBottom from "@/components/PageBottom/index.vue";
+const videoSrc = ref(); // 视频地址
+const homeData = ref();
+const footerData = ref();
+const aboutData = ref();
 
-import { homeData, footerData } from "@/util/mockData";
-
-// POST请求示例
 const submitData = async () => {
   try {
-    const response = await post("/wande/getWebDatas", {
+    const resData = await getWebDatas({
       pageNumber: 1,
       language: "zh",
     });
-    console.log("提交结果:", response);
+    footerData.value = resData.footerData;
+    homeData.value = resData.homeData;
+    videoSrc.value = resData.homeData?.videoSrc;
+    console.log("提交结果:", resData);
   } catch (error) {
     console.error("提交失败:", error);
   }
 };
 onMounted(() => {
+  console.log("aboutData:", aboutData);
   submitData();
 });
 </script>

@@ -7,7 +7,7 @@
     <div class="anchor-container">
       <el-anchor class="fixed-anchor" :offset="100" @change="handleChange">
         <el-anchor-link
-          v-for="(item, index) in aboutData.anchorlinkData"
+          v-for="(item, index) in aboutData?.anchorlinkData"
           :key="index"
           :href="item.href"
           :title="item.title"
@@ -17,34 +17,34 @@
 
     <!-- 内容部分 -->
     <div>
-      <aboutPageTop :data="aboutData.aboutTopImg" />
+      <aboutPageTop :data="aboutData?.aboutTopImg" />
     </div>
 
     <div id="aboutPageBrief">
       <!-- 公司简介 -->
-      <aboutPageBrief :aboutPageBrirfData="aboutData.gongSiJianJie" />
+      <aboutPageBrief :aboutPageBrirfData="aboutData?.gongSiJianJie" />
     </div>
     <div id="aboutPageCourse">
       <!-- 发展历程 -->
-      <aboutPageCourse :list="aboutData.shijianxianData" />
+      <aboutPageCourse :list="aboutData?.shijianxianData" />
     </div>
     <div id="aboutPageBrief2">
       <!-- 公司介绍 -->
-      <aboutPageGongsiwenhua :tablistData="aboutData.gongsiwenhuaData" />
+      <aboutPageGongsiwenhua :tablistData="aboutData?.gongsiwenhuaData" />
     </div>
     <div id="aboutPageBrief3">
       <!-- 员工风采 -->
       <aboutPageYuangong
-        :title="aboutData.employeeImagesData.title"
-        :images="aboutData.employeeImagesData.employeeImagesItem"
+        :title="aboutData?.employeeImagesData?.title"
+        :images="aboutData?.employeeImagesData?.employeeImagesItem"
       />
     </div>
     <!-- 我们的资质及荣誉 -->
     <div id="aboutPageBrief4">
       <aboutPageGongsizizhi
-        :images="aboutData.gongsizizhiData.images"
-        :title="aboutData.gongsizizhiData.title"
-        :backgroundImage="aboutData.gongsizizhiData.backgroundImage"
+        :images="aboutData?.gongsizizhiData?.images"
+        :title="aboutData?.gongsizizhiData?.title"
+        :backgroundImage="aboutData?.gongsizizhiData?.backgroundImage"
       />
     </div>
     <!-- 底部 -->
@@ -53,6 +53,8 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
+import { getWebDatas } from "@/api/general";
 import aboutPageTop from "./components/aboutPageTop.vue"; // 顶部关于万德
 import aboutPageBrief from "./components/aboutPageBrief.vue"; // 公司简介
 import aboutPageCourse from "./components/aboutPageCourse.vue"; // 创新历程
@@ -61,7 +63,27 @@ import aboutPageYuangong from "./components/aboutPageYuangong.vue"; // 员工风
 import aboutPageGongsizizhi from "./components/aboutPageGongsizizhi.vue"; // 公司资质
 import PageBottom from "@/components/PageBottom/index.vue"; // 底部
 
-import { aboutData, footerData } from "@/util/mockData.js";
+// import { aboutData, footerData } from "@/util/mockData.js";
+const footerData = ref();
+const aboutData = ref();
+
+const submitData = async () => {
+  try {
+    const resData = await getWebDatas({
+      pageNumber: 2,
+      language: "zh",
+    });
+    footerData.value = resData.footerData;
+    aboutData.value = resData.aboutData;
+    console.log("提交结果:", resData);
+  } catch (error) {
+    console.error("提交失败:", error);
+  }
+};
+onMounted(() => {
+  console.log("aboutData:", aboutData);
+  submitData();
+});
 
 const handleChange = (href) => {
   console.log(`anchor change: ${href}`);

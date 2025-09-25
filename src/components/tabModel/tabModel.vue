@@ -56,7 +56,16 @@ const props = defineProps({
 
 // 当前激活的Tab索引
 const activeTab = ref(props.initialTab);
-const activecontent = ref(props.tabs[0].props.content);
+// const activecontent = ref(props?.tabs[0]?.props?.content);
+// 使用 computed 计算当前内容
+const activecontent = computed(() => {
+  if (!props.tabs || props.tabs.length === 0) {
+    return "暂无内容"; // 或者返回默认值
+  }
+
+  const currentTab = props.tabs[activeTab.value];
+  return currentTab?.props?.content || "内容加载中...";
+});
 
 // 解析背景图片路径
 const resolvedBackgroundImage = computed(() => {
@@ -88,11 +97,24 @@ const resolvedBackgroundImage = computed(() => {
 // 切换Tab
 const changeTab = (index) => {
   activeTab.value = index;
-  activecontent.value = props.tabs[index].props.content;
+  // activecontent.value = props.tabs[index].props.content;
   console.log("tabs---", props.tabs);
   console.log("activeTab---", activeTab.value);
 };
-
+// 监听 tabs 数据变化，确保初始显示正确
+watch(
+  () => props.tabs,
+  (newTabs) => {
+    if (newTabs && newTabs.length > 0) {
+      // 如果当前 activeTab 超出范围，重置为 0
+      if (activeTab.value >= newTabs.length) {
+        activeTab.value = 0;
+      }
+      console.log("tabs数据已更新:", newTabs);
+    }
+  },
+  { immediate: true } // 立即执行一次
+);
 // 监听背景图片变化
 watch(
   () => props.backgroundImage,

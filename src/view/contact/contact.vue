@@ -2,9 +2,9 @@
   <div class="homePage">
     <div style="height: 105px"></div>
     <!-- 顶部关于万德 -->
-    <aboutPageTop :data="contactData.aboutTopImg" />
+    <aboutPageTop :data="contactData?.aboutTopImg" />
     <!-- 联系方式 -->
-    <lianxifangshi :contact-data="contactData.lianxifangshi" />
+    <lianxifangshi :contact-data="contactData?.lianxifangshi" />
     <!-- 地图 -->
     <!-- <ditu
       :title="contactData.gongsiData.title"
@@ -12,11 +12,11 @@
     /> -->
     <!-- 业务范围 -->
     <yeWuFanWei
-      :title="contactData.YeWuFanWeiData.title"
-      :img="contactData.YeWuFanWeiData.img"
+      :title="contactData?.YeWuFanWeiData?.title"
+      :img="contactData?.YeWuFanWeiData?.img"
     />
     <!-- 给我们留言 -->
-    <lliuYan :config="contactData.liuyanData" />
+    <lliuYan :config="contactData?.liuyanData" />
     <!--  公司资质 -->
     <!-- <Gongsizizhi
       :images="contactData.gongsizizhiData.gongsizizhiimages"
@@ -28,6 +28,8 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
+import { getWebDatas } from "@/api/general";
 import aboutPageTop from "@/view/about/components/aboutPageTop.vue"; // 顶部关于万德
 import lianxifangshi from "./components/lianxifangshi.vue"; // 联系方式
 import ditu from "./components/ditu.vue"; // 地图
@@ -35,7 +37,7 @@ import lliuYan from "./components/lliuYan.vue"; // 给我们留言
 import yeWuFanWei from "./components/yeWuFanWei.vue"; // 业务范围
 // import Gongsizizhi from "./components/gongsizizhi.vue"; // 公司资质
 import PageBottom from "@/components/PageBottom/index.vue"; // 底部
-import { contactData, footerData } from "@/util/mockData.js";
+// import { contactData, footerData } from "@/util/mockData.js";
 const gongsizizhiData = {
   gongsizizhititle: "我们的资质及荣誉",
   gongsizizhiimages: [
@@ -116,6 +118,25 @@ const gongsizizhiData = {
     },
   ],
 };
+
+const footerData = ref();
+const contactData = ref();
+const submitData = async () => {
+  try {
+    const resData = await getWebDatas({
+      pageNumber: 5,
+      language: "zh",
+    });
+    footerData.value = resData.footerData;
+    contactData.value = resData.contactData;
+    console.log("提交结果:", resData);
+  } catch (error) {
+    console.error("提交失败:", error);
+  }
+};
+onMounted(() => {
+  submitData();
+});
 </script>
 
 <style lang="scss" scoped>

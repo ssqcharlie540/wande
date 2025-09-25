@@ -117,7 +117,12 @@ const props = defineProps({
 });
 
 // 示例图片数据
-const images = ref();
+// const images = ref(props.images);
+// 直接使用 computed 计算属性
+const images = computed(() => {
+  console.log("images props 更新:", props.images);
+  return props.images || [];
+});
 
 // 滑动相关变量
 const sliderTrack = ref(null);
@@ -136,8 +141,14 @@ const lightboxVisible = ref(false);
 const lightboxIndex = ref(0);
 
 // 计算当前显示的图片
-const currentImage = computed(() => images.value[lightboxIndex.value]);
-
+// const currentImage = computed(() => images.value[lightboxIndex.value]);
+// 在需要使用的地方直接使用 images.value
+const currentImage = computed(() => {
+  if (images.value.length === 0) {
+    return { src: "", alt: "", description: "暂无图片" };
+  }
+  return images.value[lightboxIndex.value] || images.value[0];
+});
 // 响应式调整每屏显示图片数量
 const updateSlidesPerView = () => {
   const width = window.innerWidth;
@@ -178,7 +189,9 @@ const resolvedBackgroundImage = computed(() => {
 });
 // 初始化滑动组件
 onMounted(() => {
-  images.value = props.images;
+  // images.value = props.images;
+  console.log("出事化滑动组件 images---", images.value);
+
   updateSlidesPerView();
   window.addEventListener("resize", updateSlidesPerView);
   contextMenuHandler();
@@ -257,9 +270,7 @@ const animation = () => {
 
 const setSliderPosition = () => {
   if (sliderTrack.value) {
-    sliderTrack.value.style.transform = `translateX(${
-      currentTranslate.value
-    }px)`;
+    sliderTrack.value.style.transform = `translateX(${currentTranslate.value}px)`;
   }
 };
 

@@ -63,7 +63,13 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { tabsData } from "@/util/mockData";
+// import { tabsData } from "@/util/mockData";
+const props = defineProps({
+  tabsData: {
+    type: Array,
+    required: true,
+  },
+});
 // import Floatingmessage from "@/components/FloatingTabs/message.vue";
 
 const router = useRouter();
@@ -254,10 +260,9 @@ const navigateTo = (path) => {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  
 }
-.tab-item:hover{
-  color: #D8B280;
+.tab-item:hover {
+  color: #d8b280;
 }
 
 .tab-item span {
@@ -293,7 +298,7 @@ const navigateTo = (path) => {
 .active-tab-container .tab-item span {
   font-weight: bold;
   transition: all 0.3s ease;
-  color: #D8B280;
+  color: #d8b280;
 }
 
 /* .active-tab-container .tab-item {
