@@ -17,14 +17,16 @@
 
         <!-- 第二部分：产品及服务 -->
         <div class="section products-section">
-          <h2 class="section-title">{{ footerData?.services?.title }}</h2>
           <ul class="service-list">
             <li
               v-for="(service, index) in footerData?.services?.items"
               :key="index"
               class="service-item"
+              @click="navigateTo(service.path)"
             >
-              {{ service }}
+              <span class="service-text">
+                {{ service.title }}
+              </span>
             </li>
           </ul>
         </div>
@@ -76,8 +78,9 @@
 
 <script setup>
 import { defineProps } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { getImageUrl } from "@/util/utils.js";
-
+const router = useRouter();
 // 定义组件属性
 const props = defineProps({
   footerData: {
@@ -85,6 +88,11 @@ const props = defineProps({
     default: () => ({}),
   },
 });
+const navigateTo = (path) => {
+  console.log("Navigating to:", path);
+
+  router.push(path);
+};
 </script>
 
 <style scoped lang="scss">
@@ -170,27 +178,40 @@ const props = defineProps({
   border-radius: 4px;
   font-size: 1.2rem;
   font-weight: 600;
-  transition: all 0.3s ease;
   position: relative;
   padding-left: 20px;
 
-  // &::before {
-  //   content: "•";
-  //   color: rgba(253, 136, 0, 1);
-  //   font-weight: bold;
-  //   display: inline-block;
-  //   width: 1em;
-  //   margin-left: -1em;
-  //   font-size: 1.4rem;
-  // }
+  .service-text {
+    position: relative;
+    padding-bottom: 5px;
+    cursor: pointer;
+    transition: color 0.3s ease;
 
-  // &:hover {
-  //   color: rgba(253, 136, 0, 1);
-  //   cursor: pointer;
-  //   transform: translateX(5px);
-  // }
+    // 下划线初始状态
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%; // 从中心开始
+      width: 0%; // 初始宽度为0
+      height: 2px;
+      background: rgb(255, 0, 0);
+      opacity: 0;
+      transition: all 0.4s ease;
+      transform: translateX(-50%); // 居中定位
+    }
+
+    // 悬停效果
+    &:hover {
+      color: #d8b280;
+
+      &::before {
+        width: 100%; // 扩展到100%宽度
+        opacity: 1;
+      }
+    }
+  }
 }
-
 // 联系方式部分
 .contact-item {
   margin-bottom: 15px;

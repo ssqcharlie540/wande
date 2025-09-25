@@ -4,7 +4,9 @@
     <div class="container">
       <!-- 1. h1标题 -->
       <h1 class="main-title">{{ title }}</h1>
-      <div class="content">111</div>
+      <div class="content">
+        <el-image style="height: 100%" :src="img" fit="contain" />
+      </div>
     </div>
   </div>
 </template>
@@ -17,6 +19,10 @@ const props = defineProps({
     type: String,
     default: "默认标题",
   },
+  img: {
+    type: String,
+    default: "",
+  },
 });
 </script>
 
@@ -28,7 +34,7 @@ const props = defineProps({
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    // padding: 20px;
     background-color: #fff;
     .main-title {
       text-align: center;
@@ -36,11 +42,6 @@ const props = defineProps({
       margin-bottom: 20px;
       color: #333;
     }
-  }
-  .content {
-    width: 100%;
-    height: 600px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   }
 }
 </style>

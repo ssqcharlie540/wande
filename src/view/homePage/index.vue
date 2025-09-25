@@ -34,7 +34,7 @@
     />
     <!-- 产品应用领域 -->
     <homePageContent2
-      :title="homeData.contentData.title"
+      :title="homeData?.contentData.title"
       :contentData="homeData.contentData.contentItem"
     />
     <!-- 合作客户 -->
@@ -48,6 +48,8 @@
 </template>
 
 <script setup >
+import { onMounted } from "vue";
+import { post,get } from "@/api/request";
 import aliplayer from "./components/homePagealiplayer.vue";
 
 import VideoBackground from "@/components/videoBack/index.vue";
@@ -59,6 +61,22 @@ import homePageHeZuoKeHu from "./components/homePageHeZuoKeHu.vue"; // 合作客
 import PageBottom from "@/components/PageBottom/index.vue";
 
 import { homeData, footerData } from "@/util/mockData";
+
+// POST请求示例
+const submitData = async () => {
+  try {
+    const response = await post("/wande/getWebDatas", {
+      pageNumber: 1,
+      language: "zh",
+    });
+    console.log("提交结果:", response);
+  } catch (error) {
+    console.error("提交失败:", error);
+  }
+};
+onMounted(() => {
+  submitData();
+});
 </script>
 
 <style scoped lang="scss">

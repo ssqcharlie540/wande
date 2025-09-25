@@ -711,8 +711,31 @@ export const footerData = {
       "河南万德包装有限公司成立于2021年，位于中国七朝古都的河南省安阳市，具有5000年文明史、3400多年文字史、2200多年建县史、素有'三圣之乡'(文圣周文王、武圣岳飞、医圣扁鹊)的汤阴县古贤镇新型材料产业园区。万德包装是一家集研发、生产、加工、销售于一体,专业生产工业品原料、食品、医药包装的厂家。公司目前拥有厂房占地面积15000㎡,具备集研发、生产、质检、仓储等完备的生产车间,拥有高效的生产流水线、科学的质量管理体系以及成熟的运营模式。配备了吹膜机、糊底机、制筒机、印刷机等行业先进的制袋设备,形成了门类齐全、品种丰富的生产工艺和生产线,可为客户提供一体化制袋综合服务。",
   },
   services: {
-    title: "产品及服务",
-    items: ["首页", "关于万德", "全景展示", "联系我们", "ENGLISH"],
+    items: [
+      {
+        title: "首页",
+        path: "/",
+      },
+      {
+        title: "关于万德",
+        path: "/about",
+      },
+      {
+        title: "产品及服务",
+        path: "/products",
+      },
+      {
+        title: "全景展示",
+        path: "/services",
+      },
+      {
+        title: "联系我们",
+        path: "/contact",
+      },
+      {
+        title: "ENGLISH",
+      },
+    ],
   },
   contact: {
     title: "联系方式",
@@ -799,6 +822,11 @@ export const contactData = {
     title: "公司位置",
     gongsilatlng: { lat: 35.948993, lng: 114.452938 },
     gongsiLocation: "河南省安阳市汤阴县万德包装有限公司",
+  },
+  // 业务范围
+  YeWuFanWeiData: {
+    title: "业务范围",
+    img: "https://wandepack.com/image/default/9E4D99D106B541D78EBC5A1FDC493960-6-2.jpg",
   },
   // 留言
   liuyanData: {
