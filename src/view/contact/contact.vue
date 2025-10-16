@@ -5,18 +5,27 @@
     <aboutPageTop :data="contactData?.aboutTopImg" />
     <!-- 联系方式 -->
     <lianxifangshi :contact-data="contactData?.lianxifangshi" />
-    <!-- 地图 -->
-    <!-- <ditu
-      :title="contactData.gongsiData.title"
-      :gongsiData="contactData.gongsiData"
-    /> -->
+
     <!-- 业务范围 -->
     <yeWuFanWei
       :title="contactData?.YeWuFanWeiData?.title"
       :img="contactData?.YeWuFanWeiData?.img"
     />
+    <!-- 地图 -->
+    <div v-if="contactData?.gongsiData">
+      <ditu
+        v-for="(item, index) in contactData?.gongsiData"
+        :key="index"
+        :title="item.title"
+        :gongsiData="{
+          gongsilatlng: item.gongsilatlng,
+          gongsiLocation: item.gongsiLocation,
+        }"
+      />
+    </div>
+
     <!-- 给我们留言 -->
-    <lliuYan :config="contactData?.liuyanData" />
+    <lliuYan maxWidth="1000" v-if="contactData?.liuyanData" :config="contactData?.liuyanData" />
     <!--  公司资质 -->
     <!-- <Gongsizizhi
       :images="contactData.gongsizizhiData.gongsizizhiimages"
@@ -125,7 +134,7 @@ const submitData = async () => {
   try {
     const resData = await getWebDatas({
       pageNumber: 5,
-      language: "zh",
+      language: localStorage.getItem("Language") || "zh",
     });
     footerData.value = resData.footerData;
     contactData.value = resData.contactData;

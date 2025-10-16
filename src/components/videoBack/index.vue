@@ -1,6 +1,6 @@
 <template>
   <div class="video-background-container" ref="container">
-    <!-- 灰色覆盖层 -->
+    <!-- 灰色覆盖层 - 只在视频未准备好时显示 -->
     <div class="gray-overlay" :class="{ 'fade-out': isVideoReady }"></div>
 
     <!-- 视频背景 -->
@@ -10,7 +10,7 @@
       :class="[filter, { visible: isVideoReady }]"
       :src="videoSrc"
       :poster="poster"
-      :autoplay="autoplay"
+      :autoplay="false"
       :loop="loop"
       :muted="muted"
       playsinline
@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, defineEmits } from "vue";
 
 const props = defineProps({
   videoSrc: {
@@ -39,7 +39,7 @@ const props = defineProps({
   },
   autoplay: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   loop: {
     type: Boolean,
@@ -63,9 +63,12 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["play", "pause"]);
+
 const video = ref(null);
 const container = ref(null);
 const isVideoReady = ref(false);
+const isPlaying = ref(false);
 
 const handleVideoReady = () => {
   if (!isVideoReady.value) {
@@ -90,34 +93,59 @@ const adjustVideoSize = () => {
   }
 };
 
-const handleResize = () => {
-  adjustVideoSize();
-};
-
-const setupVideo = () => {
+// 播放视频
+const playVideo = async () => {
   if (!video.value) return;
 
-  // 尝试播放（处理某些浏览器的自动播放限制）
-  if (props.autoplay) {
-    const playPromise = video.value.play();
-
-    if (playPromise !== undefined) {
-      playPromise.catch((error) => {
-        console.log("自动播放被阻止:", error);
-        // 静音后重试播放
-        if (!props.muted) {
-          video.value.muted = true;
-          video.value
-            .play()
-            .catch((e) => console.log("静音后播放仍被阻止:", e));
-        }
-      });
+  try {
+    await video.value.play();
+    isPlaying.value = true;
+    emit("play");
+  } catch (error) {
+    console.log("播放失败:", error);
+    if (!props.muted) {
+      video.value.muted = true;
+      try {
+        await video.value.play();
+        isPlaying.value = true;
+        emit("play");
+      } catch (e) {
+        console.log("静音播放也失败:", e);
+      }
     }
   }
 };
 
+// 暂停视频
+const pauseVideo = () => {
+  if (!video.value) return;
+  video.value.pause();
+  isPlaying.value = false;
+  emit("pause");
+};
+
+// 切换播放状态
+const togglePlay = () => {
+  if (isPlaying.value) {
+    pauseVideo();
+  } else {
+    playVideo();
+  }
+};
+
+const handleResize = () => {
+  adjustVideoSize();
+};
+
+// 暴露方法给父组件
+defineExpose({
+  playVideo,
+  pauseVideo,
+  togglePlay,
+  isPlaying,
+});
+
 onMounted(() => {
-  setupVideo();
   window.addEventListener("resize", handleResize);
 });
 
@@ -132,7 +160,7 @@ onBeforeUnmount(() => {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: #000; /* 添加黑色背景作为回退 */
+  background-color: #000;
 }
 
 .gray-overlay {

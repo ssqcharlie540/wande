@@ -158,7 +158,7 @@ const getImageUrl = (path) => {
   padding: 20px;
   line-height: 1.8;
   color: #555;
-  font-size: 16px;
+  font-size: 18px;
   // flex-grow: 1;
   border-radius: 8px;
 
@@ -299,9 +299,9 @@ const getImageUrl = (path) => {
     height: 250px;
   }
 
-  .right-section {
-    flex-direction: column;
-  }
+  // .right-section {
+  //   flex-direction: column;
+  // }
 
   .right-column {
     &.first-column {
@@ -364,5 +364,6 @@ const getImageUrl = (path) => {
   .right-content {
     font-size: 13px;
   }
+ 
 }
 </style>

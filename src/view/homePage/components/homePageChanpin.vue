@@ -1,4 +1,4 @@
-<!-- 我们的产品及优势 -->
+<!-- 我们的产品 -->
 <template>
   <div class="homePageContent">
     <div class="container">
@@ -39,7 +39,7 @@
               <div class="image-container fullImage">
                 <el-image
                   :src="getImageUrl(item.image)"
-                  fit="contain"
+                  fit="cover"
                   style="width: 100%; height: 100%; object-position: bottom"
                 />
               </div>
@@ -172,6 +172,7 @@ const getImageUrl = (path) => {
 
           .fullImage {
             height: 400px;
+            padding: 0;
           }
 
           .title-section {

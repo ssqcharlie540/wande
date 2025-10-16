@@ -34,7 +34,7 @@
         <!-- 第三部分：联系方式 -->
         <div class="section">
           <h2 class="section-title">{{ footerData?.contact?.title }}</h2>
-          <div class="contact-info">
+          <div>
             <div
               v-for="(item, index) in footerData?.contact?.items"
               :key="index"
@@ -42,6 +42,9 @@
             >
               <div class="contact-subtitle">{{ item.label }}</div>
               <div class="contact-content">{{ item.value }}</div>
+              <!-- <div class="contact-content" v-if="item.WhatsApp">
+                {{ item.WhatsApp }}
+              </div> -->
             </div>
           </div>
         </div>
@@ -131,24 +134,43 @@ const navigateTo = (path) => {
 }
 
 .container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-  width: 70%;
-  margin: 0 auto;
+  width: 1200px;
+  display: flex;
+  font-size: 14px;
+  // display: grid;
+  // grid-template-columns: repeat(4, 1fr);
+  // gap: 30px;
+  // width: 70%;
+  // margin: 0 auto;
 }
 
 .section {
+  flex: 1;
   border-radius: 8px;
   padding: 25px;
+
+  // 联系方式部分
+  .contact-item {
+    margin-bottom: 15px;
+    .contact-subtitle {
+      color: #fff;
+      // font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .contact-content {
+      color: #85868c;
+      line-height: 25px;
+    }
+  }
 }
 
 .section-title {
   color: #ffffff;
-  font-size: 1.5rem;
   margin-bottom: 20px;
   padding-bottom: 10px;
   position: relative;
+  font: normal 20px / 30px "Microsoft YaHei", Helvetica, Arial, Verdana,
+    sans-serif;
 }
 
 // 关于万德部分
@@ -157,9 +179,8 @@ const navigateTo = (path) => {
   .section-description {
     width: 100%;
     max-width: 700px;
-    color: #cccccc;
-    line-height: 1.8;
-    font-size: 0.95rem;
+    color: #85868c;
+    line-height: 25px;
     text-align: justify;
   }
 }
@@ -176,8 +197,8 @@ const navigateTo = (path) => {
   padding: 12px 0;
   margin-bottom: 8px;
   border-radius: 4px;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font: normal 20px / 30px "Microsoft YaHei", Helvetica, Arial, Verdana,
+    sans-serif;
   position: relative;
   padding-left: 20px;
 
@@ -212,28 +233,11 @@ const navigateTo = (path) => {
     }
   }
 }
-// 联系方式部分
-.contact-item {
-  margin-bottom: 15px;
-}
-
-.contact-subtitle {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.contact-content {
-  color: #cccccc;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
 
 // 公众号部分
 .qrcode-image {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -242,37 +246,34 @@ const navigateTo = (path) => {
 // 底部信息
 .buttomItem {
   display: flex;
-  width: 70%;
+  width: 1200px;
   padding: 20px 0;
   align-items: center;
   justify-content: space-between;
+  font-size: 13px;
+  line-height: 23px;
+  color: #85868c;
   .buttomItem-left {
     display: flex;
     align-items: center;
-  }
 
-  .tab-logo {
-    width: 200px;
-    margin-right: 10px;
-    position: relative;
-    top: -5px;
+    .tab-logo {
+      width: 50px;
+      margin-right: 10px;
+      position: relative;
+    }
   }
-
-  .tabSpan {
-    font-size: 30px;
-    color: #ffffff;
-    font-weight: bold;
-  }
-}
-
-.ICPCla {
-  color: #ffffff;
-  font-size: 0.9rem;
 }
 
 // 响应式设计
+
 @media (max-width: 1200px) {
   .container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: 70%;
+    margin: 0 auto;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto auto;
     width: 85%;
@@ -310,11 +311,17 @@ const navigateTo = (path) => {
   }
 }
 
+@media (max-width: 1000px) {
+}
+
 @media (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;
     gap: 20px;
     width: 90%;
+  }
+  .about-section {
+    width: 100%;
   }
 
   .about-section,

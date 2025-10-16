@@ -7,7 +7,7 @@
 
       <!-- 公司描述文字 -->
       <div class="company-description">
-        {{ pageData?.description }}
+        <span style="font-size: 1.5em;">{{ pageData?.description }}</span>
         <span
           v-for="(word, index) in pageData?.highlightWords"
           :key="index"
@@ -21,18 +21,22 @@
       <!-- 图片展示区 -->
       <div class="image-gallery">
         <div
-          class="image-item "
+          class="image-item"
           v-for="(item, index) in pageData?.galleryItems"
           :key="index"
           :style="{ marginTop: index % 2 === 0 ? '0' : '40px' }"
         >
-          <div class="image-wrapper ">
+          <div class="image-wrapper">
             <!-- <img
               :src="getImageUrl(item.image)"
               :alt="item.title"
               class="rect-image"
             /> -->
-            <el-image class="img-hover" :src="getImageUrl(item?.image)" fit="fill" />
+            <el-image
+              class="img-hover"
+              :src="getImageUrl(item?.image)"
+              fit="fill"
+            />
             <!-- <div class="image-description">
               <h3>{{ item.title }}</h3>
               <p>{{ item.description }}</p>
@@ -61,7 +65,7 @@ const props = defineProps({
 // };
 // 获取图片URL的方法
 const getImageUrl = (path) => {
-    if (!path) {
+  if (!path) {
     return "";
   }
   // 处理路径，如果是网络路径直接返回，否则使用require

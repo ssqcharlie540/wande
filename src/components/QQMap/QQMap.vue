@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div style="padding: 0 0 20px 0">
-      <div style="color: #333;">公司地址：{{ gongsiData.gongsiLocation }}</div>
+      <div style="color: #333">{{ gongsiData.gongsiLocation }}</div>
     </div>
     <!--     @click="onClick" -->
     <tlbs-map
@@ -49,11 +49,8 @@ const mapRef = ref(null);
 const center = ref(); // 地图中心点经纬度
 const zoom = ref(19); // 地图缩放级别，支持3～20。
 const control = {
-  // 地图控件的配置
-  scale: {},
-  zoom: {
-    position: "topRight",
-  },
+  scale: false, // 禁用比例尺（长度对比）
+  zoom: false, // 禁用缩放控件
 };
 const markerRef = ref(null);
 const originalcenter = ref(null);
@@ -92,8 +89,28 @@ const onMapInited = () => {
   console.log(mapRef.value.map);
   geometries.value = [{ position: props.gongsiData.gongsilatlng }];
   center.value = props.gongsiData.gongsilatlng;
+
+  // 通过地图实例移除控件
+  removeControls();
 };
 
+const removeControls = () => {
+  if (mapRef.value && mapRef.value.map) {
+    const map = mapRef.value.map;
+    console.log("map---", map);
+
+    // 尝试通过地图实例的方法移除控件
+    try {
+      // 移除旋转控件（方向标）
+      map.removeControl && map.removeControl("rotation");
+
+      // 移除logo logoControls
+      map.removeControl && map.removeControl("logoControl");
+    } catch (error) {
+      console.log("移除控件方法可能不存在:", error);
+    }
+  }
+};
 const onClick = (e) => {
   geometries.value = [{ position: e.latLng }];
   emit("selectLocation", e.latLng);
@@ -107,7 +124,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .content {
-  padding: 20px;
+  padding: 60px 90px;
 }
 .qqmap {
   width: 100%;
@@ -163,5 +180,10 @@ button {
   display: inline-block;
   background: #f36d78;
   border-radius: 50%;
+}
+
+/* 或者更暴力的方式 - 隐藏所有控件容器 */
+:deep(.tmap-control-container) {
+  display: none !important;
 }
 </style>

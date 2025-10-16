@@ -2,21 +2,8 @@
   <div class="homePageContent">
     <div class="container">
       <!-- 1. h1标题 -->
-      <h1 class="main-title">发展历程</h1>
+      <h1 class="main-title" v-if="title">{{ title }}</h1>
       <div class="time-line-container">
-        <!-- 年份时间线 -->
-        <!-- <div class="year-timeline">
-          <div
-            v-for="(year, index) in processedYearList"
-            :key="'year-' + index"
-            class="year-item"
-            :style="{ top: calculateYearPosition(year) + 'px' }"
-          >
-            <div class="year-text">{{ year }}年</div>
-          </div>
-        </div> -->
-
-        <!-- 月份时间线 -->
         <div class="time-line">
           <el-timeline>
             <el-timeline-item
@@ -28,6 +15,7 @@
             >
               <!-- 时间显示 - 仅当activity.time存在时显示 -->
               <div
+                :style="Language === 'en' ? { left: '-300px' } : ''"
                 class="time"
                 v-if="activity.time && activity.time.length >= 7"
               >
@@ -38,10 +26,12 @@
                         processedList[index]?.time?.substring(0, 5) !==
                         processedList[index - 1]?.time?.substring(0, 5)
                       "
-                      >{{ activity.time.substring(0, 5) }}</span
-                    >
+                      >{{ activity.time.split("-")[0] }}
+                    </span>
                   </div>
-                  <div class="month">{{ activity.time.substring(5, 7) }}月</div>
+                  <div class="month" v-if="!activity.noneTime">
+                    {{ activity.time.split("-")[1] }}
+                  </div>
                 </div>
               </div>
               <!-- 内容 -->
@@ -65,11 +55,16 @@ import { ref, computed, defineProps, onMounted, nextTick } from "vue";
 
 // 定义组件属性
 const props = defineProps({
+  title: {
+    type: String,
+    default: "",
+  },
   list: {
     type: Array,
     default: () => [],
   },
 });
+const Language = ref(localStorage.getItem("Language") || "zh");
 
 // 存储每个时间线项的实际高度
 const itemHeights = ref([]);
@@ -77,51 +72,27 @@ const itemHeights = ref([]);
 // 处理后的列表数据
 const processedList = computed(() => {
   // 这里可以对props.list进行任何处理
-  return props.list.map((item) => {
+  return props.list.map((item, index) => {
     // 示例处理：确保时间格式正确
-    if (item.time && (!item.time.includes("年") || !item.time.includes("月"))) {
+    if (!item.time) {
       // 添加处理逻辑，比如转换日期格式
-      return { ...item, time: formatTime(item.time) };
+      // console.log("当前有没有---->", item.time? formatTime(item.time) : formatTime(props.list[index-1].time));
+      console.log("当前有时间的---->", item);
+
+      return {
+        ...item,
+        time: formatTime(props.list[index - 1].time),
+        noneTime: true, // 标记为没有时间显示
+      };
+    } else {
+      // console.log("当前是没有事件的---->", item);
+
+      return item;
     }
-    return item;
+
+    // return item;
   });
 });
-
-// 计算年份列表（基于处理后的列表）
-const processedYearList = computed(() => {
-  return [
-    ...new Set(
-      processedList.value
-        .filter((item) => item.time) // 过滤掉没有时间的项目
-        .map((item) => {
-          // 提取年份
-          const yearMatch = item.time.match(/(\d{4})年/);
-          return yearMatch ? yearMatch[1] : item.time.substring(0, 4);
-        })
-    ),
-  ].sort((a, b) => b - a);
-});
-
-// 计算年份位置 - 基于实际高度
-const calculateYearPosition = (year) => {
-  // 找到该年份的第一个项目索引
-  const firstIndex = processedList.value.findIndex((item) => {
-    if (!item.time) return false;
-    const itemYear = item.time.match(/(\d{4})年/);
-    return itemYear ? itemYear[1] === year : item.time.substring(0, 4) === year;
-  });
-
-  if (firstIndex === -1) return 0;
-
-  // 计算累计高度
-  let cumulativeHeight = 0;
-  for (let i = 0; i < firstIndex; i++) {
-    // 使用实际高度或默认值
-    cumulativeHeight += itemHeights.value[i] || 120;
-  }
-
-  return cumulativeHeight + 10; // 添加一些偏移量
-};
 
 // 生成动画延迟样式
 const getAnimationDelay = (index) => {
@@ -362,14 +333,6 @@ onMounted(() => {
   .time-line {
     margin-left: 0;
     padding-left: 20px;
-
-    :deep(.el-timeline-item__node) {
-      left: 20px;
-    }
-
-    :deep(.el-timeline-item__tail) {
-      left: 28px;
-    }
   }
 
   .time {

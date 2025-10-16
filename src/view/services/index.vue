@@ -22,7 +22,7 @@ const submitData = async () => {
   try {
     const resData = await getWebDatas({
       pageNumber: 4,
-      language: "zh",
+      language: localStorage.getItem("Language") || "zh",
     });
     footerData.value = resData.footerData;
     qjzsData.value = resData.qjzsData;

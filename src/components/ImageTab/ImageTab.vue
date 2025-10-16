@@ -47,7 +47,7 @@
 
       <div class="thumbnail-indicators">
         <div
-          v-for="(image, index) in props.images"
+          v-for="(image, index) in images"
           :key="index"
           :class="['thumbnail-item', { active: currentIndex === index }]"
           @click="switchToSlide(index)"
@@ -62,7 +62,7 @@
     </div>
 
     <div class="Title">
-      <div class="TitleContent">{{ props.title }}</div>
+      <div class="TitleContent">{{ title }}</div>
     </div>
   </div>
 </template>
@@ -126,6 +126,14 @@ watch(currentIndex, (newVal, oldVal) => {
   }, 600); // 与过渡时间保持一致
 });
 
+// 监听接收的images变化
+watch(
+  () => props.images,
+  (newImages) => {
+    console.log("images changed:", newImages);
+  },
+  { immediate: true }
+);
 // 添加键盘事件监听
 onMounted(() => {
   const handleKeyDown = (event) => {
@@ -315,17 +323,20 @@ onMounted(() => {
     }
   }
   .Title {
-    height: 10vh;
-    // background-color: #ff0000;
+    // 移除固定高度，改为自适应
+    min-height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     top: -85vh;
     z-index: 4;
+
     .TitleContent {
       width: 50%;
-      height: 100%;
+      // 移除固定高度，改为自适应
+      min-height: 60px; // 设置最小高度
+      padding: 15px 20px; // 添加内边距确保文字与边框有间距
       background-color: rgba(0, 0, 0, 0.5);
       border-radius: 10px;
       display: flex;
@@ -333,6 +344,21 @@ onMounted(() => {
       justify-content: center;
       font-size: 40px;
       color: #fff;
+      word-wrap: break-word; // 允许长单词换行
+      white-space: normal; // 确保文字正常换行
+      text-align: center; // 文字居中
+      box-sizing: border-box; // 确保padding不会增加元素总宽度
+
+      // 响应式字体大小
+      @media (max-width: 768px) {
+        font-size: 24px;
+        padding: 12px 16px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 20px;
+        padding: 10px 12px;
+      }
     }
   }
 }

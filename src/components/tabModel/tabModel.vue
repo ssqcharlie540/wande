@@ -9,7 +9,7 @@
     </h1>
 
     <!-- Tab部分 -->
-    <div class="tabs-container">
+    <div class="tabs-container" v-if="tabs && tabs.length">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -21,8 +21,18 @@
     </div>
 
     <!-- 内容部分 -->
-    <div class="content" :style="{ color: contentColor }">
-      {{ activecontent }}
+    <div
+      v-if="tabs && tabs.length"
+      class="content"
+      :style="{ color: contentColor }"
+    >
+      <div style="white-space: pre-line">{{ activecontent }}</div>
+      <!-- <span>{{ activecontent }}</span> -->
+    </div>
+
+    <!-- 非tab部分 -->
+    <div v-if="content" class="content" :style="{ color: contentColor }">
+      <div style="white-space: pre-line">{{ content }}</div>
     </div>
   </div>
 </template>
@@ -43,6 +53,10 @@ const props = defineProps({
   tabs: {
     type: Array,
     default: () => [],
+  },
+  content: {
+    type: String,
+    default: "",
   },
   initialTab: {
     type: Number,

@@ -36,7 +36,7 @@ const props = defineProps({
   padding: 20px 0;
   background-color: #fff;
   .container {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;

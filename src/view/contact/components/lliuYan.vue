@@ -1,7 +1,7 @@
 <!-- 成功提示弹窗 -->
 <template>
   <div class="homePageContent">
-    <div class="container">
+    <div class="container" :style="{ maxWidth: `${maxWidth}px` }">
       <!-- 1. h1标题 -->
       <h1 class="main-title">{{ config.title }}</h1>
       <div class="content">
@@ -28,11 +28,11 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                  <el-form-item prop="name1" :label-width="formLabelWidth">
+                  <el-form-item prop="email" :label-width="formLabelWidth">
                     <el-input
                       class="input-item"
                       :placeholder="config.fields?.email"
-                      v-model="formModel.name1"
+                      v-model="formModel.email"
                       autocomplete="off"
                       maxlength="50"
                       show-word-limit
@@ -41,11 +41,11 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                  <el-form-item prop="name2" :label-width="formLabelWidth">
+                  <el-form-item prop="contact" :label-width="formLabelWidth">
                     <el-input
                       class="input-item"
                       :placeholder="config.fields?.contact"
-                      v-model="formModel.name2"
+                      v-model="formModel.contact"
                       autocomplete="off"
                       maxlength="50"
                       show-word-limit
@@ -54,11 +54,11 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                  <el-form-item  :label-width="formLabelWidth">
+                  <el-form-item :label-width="formLabelWidth">
                     <el-input
                       class="input-item"
                       :placeholder="config.fields?.company"
-                      v-model="formModel.name3"
+                      v-model="formModel.company"
                       autocomplete="off"
                       maxlength="50"
                       show-word-limit
@@ -67,11 +67,11 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                  <el-form-item  :label-width="formLabelWidth">
+                  <el-form-item :label-width="formLabelWidth">
                     <el-input
                       style="height: 160px"
                       :placeholder="config.fields?.content"
-                      v-model="formModel.name4"
+                      v-model="formModel.content"
                       autocomplete="off"
                       maxlength="1000"
                       show-word-limit
@@ -107,8 +107,9 @@
 
 <script setup>
 // 可以在这里添加组件逻辑
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { emailRegex } from "@/util/utils.js";
+import { addInquiry } from "@/api/general.js";
 
 // 默认配置
 const defaultConfig = {};
@@ -118,6 +119,10 @@ const props = defineProps({
   config: {
     type: Object,
     default: () => ({}),
+  },
+  maxWidth: {
+    type: String,
+    default: "1200",
   },
 });
 
@@ -135,10 +140,10 @@ const mergedConfig = computed(() => ({
 const generateFrom = () => {
   return {
     name: "",
-    name1: "",
-    name2: "",
-    name3: "",
-    name4: "",
+    email: "",
+    contact: "",
+    company: "",
+    content: "",
   };
 };
 const formModel = ref(generateFrom());
@@ -180,25 +185,77 @@ const emailRule = {
 // 使用配置生成rules
 const rules = computed(() => ({
   name: generateRule(mergedConfig.value.fields.name),
-  name1: [...generateRule(mergedConfig.value.fields.email), emailRule],
-  name2: generateRule(mergedConfig.value.fields.contact),
-  name3: generateRule(mergedConfig.value.fields.company),
-  name4: generateRule(mergedConfig.value.fields.content, 1000),
+  email: [...generateRule(mergedConfig.value.fields.email), emailRule],
+  contact: generateRule(mergedConfig.value.fields.contact),
+  company: generateRule(mergedConfig.value.fields.company),
+  content: generateRule(mergedConfig.value.fields.content, 1000),
 }));
 
+// 监听配置变化，确保规则生效后再清空校验
+watch(
+  () => mergedConfig.value,
+  (newConfig) => {
+    if (newConfig && Object.keys(newConfig).length > 0) {
+      // 使用 nextTick 确保 DOM 更新完成
+      setTimeout(() => {
+        if (formRef.value) {
+          formRef.value.clearValidate();
+          console.log("配置变化后清空校验");
+        }
+      }, 100);
+    }
+  },
+  { immediate: true, deep: true }
+);
 const dialogVisible = ref(false);
 const onSubmit = () => {
   console.log("submit!");
   formRef.value.validate((valid) => {
     if (valid) {
       console.log("submit!", formModel.value);
-      dialogVisible.value = true;
+      addInquiryFn(); // 提交数据
     } else {
       console.log("error submit!");
       return false;
     }
   });
 };
+
+const addInquiryFn = () => {
+  // 调用接口提交数据
+  // 这里假设有一个名为 addInquiry 的 API 方法
+
+  addInquiry({
+    name: formModel.value.name,
+    email: formModel.value.email,
+    contact: formModel.value.contact,
+    company: formModel.value.company,
+    content: formModel.value.content,
+  })
+    .then((response) => {
+      console.log("提交成功:", response);
+      dialogVisible.value = true;
+      formModel.value = generateFrom(); // 重置表单
+      if (formRef.value) {
+        formRef.value.clearValidate(); // 清空校验状态
+      }
+    })
+    .catch((error) => {
+      console.error("提交失败:", error);
+    });
+};
+
+// 刚打开页面清空校验
+onMounted(() => {
+  console.log("mounted");
+  // 添加延迟，确保表单完全初始化
+  setTimeout(() => {
+    if (formRef.value) {
+      formRef.value.clearValidate();
+      console.log("mounted 后清空校验");
+    }
+  }, 300);
+});
 </script>
 
 <style scoped lang="scss">
@@ -207,7 +264,7 @@ const onSubmit = () => {
   padding: 20px 0;
   background-color: #fff;
   .container {
-    max-width: 1200px;
+    // max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;

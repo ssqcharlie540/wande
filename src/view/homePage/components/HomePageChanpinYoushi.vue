@@ -174,7 +174,7 @@ const getImageUrl = (path) => {
     width: 100%;
 
     p {
-      font-size: 38px;
+      font-size: 23px;
       line-height: 1.8;
       color: #333;
       text-align: center;

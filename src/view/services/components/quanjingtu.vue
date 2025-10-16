@@ -21,7 +21,7 @@ let viewer = null;
 const props = defineProps({
   title: {
     type: String,
-    default: "生产车间",
+    default: "",
   },
 });
 

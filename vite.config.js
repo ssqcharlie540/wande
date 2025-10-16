@@ -3,20 +3,21 @@ import vue from "@vitejs/plugin-vue";
 import path from "path";
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+  ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"), // 默认已配置
+      "@": path.resolve(__dirname, "./src"),
     },
   },
   server: {
-    port: 443, // 确保端口与浏览器中一致
+    port: 443,
     proxy: {
       "/api": {
-        target: "https://www.wandepack.com", // 你的后端地址
+        target: "https://www.wandepack.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
-        // 如果后端不需要/api前缀，使用：rewrite: (path) => path.replace(/^\/api/, '')
       },
     },
   },

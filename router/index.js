@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 // 测试用直接导入
 import HomePage from "../src/view/homePage/index.vue";
 
@@ -38,10 +38,17 @@ const routes = [
     component: () =>
       import(/* webpackChunkName:"" */ "../src/view/contact/contact.vue"),
   },
+  {
+    // 询盘 表格页面
+    path: "/getInquiries",
+    name: "getInquiries",
+    component: () =>
+      import(/* webpackChunkName:"" */ "../src/view/getInquiries/getInquiries.vue"),
+  },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     // 始终滚动到顶部

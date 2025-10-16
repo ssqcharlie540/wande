@@ -1,24 +1,37 @@
 <template>
   <!-- 顶部tab -->
-  <FloatingTabs :tabsData="tabsData" />
+  <FloatingTabs
+    v-if="showFloatingTabs"
+    :tabsData="tabsData"
+    @onLanguage="onLanguage"
+  />
   <div class="content">
-    <router-view></router-view>
+    <router-view :key="routeKey"></router-view>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, provide } from "vue";
+import { onMounted, ref, provide, watch } from "vue";
+import { useRoute } from "vue-router";
 import { getWebDatas } from "@/api/general";
 import FloatingTabs from "@/components/FloatingTabs/index.vue";
 const resDataNumber1 = ref(null);
 provide("resDataNumber1", resDataNumber1);
+// 添加路由key
+const routeKey = ref(0);
+// 添加加载状态
+const isLoading = ref(false);
+// 获取当前路由对象
+const route = useRoute();
+// 是否显示顶部tab
+const showFloatingTabs = ref(true);
 // 获取数据
 const tabsData = ref([]);
 const submitData = async () => {
   try {
     const resData = await getWebDatas({
       pageNumber: 1,
-      language: "zh",
+      language: localStorage.getItem("Language") || "zh",
     });
     tabsData.value = resData.tabsData;
     resDataNumber1.value = resData;
@@ -27,7 +40,36 @@ const submitData = async () => {
     console.error("提交失败:", error);
   }
 };
+// 语言切换
+const onLanguage = (lang) => {
+  console.log("语言切换为:", lang);
+  localStorage.setItem("Language", lang);
+
+  // 更新key强制重新渲染
+  routeKey.value++;
+  submitData();
+};
+// 添加判断 如果当前路由是 getInquiries 则不显示顶部tab
+if (window.location.pathname === "/getInquiries") {
+  tabsData.value = [];
+} else {
+  submitData();
+}
+
+// 监听路由变化
+watch(
+  () => route.path,
+  (newPath, oldPath) => {
+    console.log("路径变化了", oldPath, "->", newPath);
+    if (newPath === "/getInquiries") {
+      showFloatingTabs.value = false;
+    } else {
+      showFloatingTabs.value = true;
+    }
+  }
+);
 onMounted(() => {
+  localStorage.setItem("Language", "zh");
   submitData();
 });
 </script>

@@ -7,6 +7,7 @@
         :titleImg="tablistData.tabs1?.titleImg"
         :background-image="getImageUrl(tablistData.tabs1?.backimg1)"
         :tabs="tablistData.tabs1?.tabsData1"
+        :content="tablistData.tabs1?.content"
         :initial-tab="0"
         content-color="#fff"
       />
@@ -14,6 +15,7 @@
         :titleImg="tablistData.tabs2?.titleImg"
         :background-image="getImageUrl(tablistData.tabs2?.backimg2)"
         :tabs="tablistData.tabs2?.tabsData2"
+        :content="tablistData.tabs2?.content"
         :initial-tab="0"
         content-color="#fff"
       />
@@ -21,6 +23,7 @@
         :titleImg="tablistData.tabs3?.titleImg"
         :background-image="getImageUrl(tablistData.tabs3?.backimg3)"
         :tabs="tablistData.tabs3?.tabsData3"
+        :content="tablistData.tabs3?.content"
         :initial-tab="0"
         content-color="#fff"
       />

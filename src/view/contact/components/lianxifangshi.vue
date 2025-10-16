@@ -7,27 +7,39 @@
       <!-- 左右卡片布局 -->
       <div class="cards-container">
         <!-- 左侧卡片 -->
-        <div class="card left-card">
+        <div class="card">
           <div class="card-content">
-            <div class="icon-wrapper">
+            <!-- <div class="icon-wrapper">
               <component :is="contactData.leftCard.icon" class="icon" />
-            </div>
+            </div> -->
             <div class="contact-type">{{ contactData.leftCard.type }}</div>
             <div class="contact-info">{{ contactData.leftCard.phone }}</div>
+            <div class="contact-info" v-if="contactData.leftCard.WhatsApp">
+              {{ contactData.leftCard.WhatsApp }}
+            </div>
             <div class="contact-email">{{ contactData.leftCard.email }}</div>
+            <div class="contact-email" v-if="contactData.leftCard.address">
+              {{ contactData.leftCard.address }}
+            </div>
             <div class="contact-desc">{{ contactData.leftCard.desc }}</div>
           </div>
         </div>
 
         <!-- 右侧卡片 -->
-        <div class="card right-card">
+        <div class="card">
           <div class="card-content">
-            <div class="icon-wrapper">
+            <!-- <div class="icon-wrapper">
               <component :is="contactData.rightCard.icon" class="icon" />
-            </div>
+            </div> -->
             <div class="contact-type">{{ contactData.rightCard.type }}</div>
             <div class="contact-info">{{ contactData.rightCard.phone }}</div>
+            <div class="contact-info" v-if="contactData.rightCard.WhatsApp">
+              {{ contactData.rightCard.WhatsApp }}
+            </div>
             <div class="contact-email">{{ contactData.rightCard.email }}</div>
+            <div class="contact-email" v-if="contactData.rightCard.address">
+              {{ contactData.rightCard.address }}
+            </div>
             <div class="contact-desc">{{ contactData.rightCard.desc }}</div>
           </div>
         </div>
@@ -86,7 +98,7 @@ const SupportIcon = {
   background-color: #f8f9fa;
 
   .container {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 
@@ -107,7 +119,7 @@ const SupportIcon = {
         flex: 1;
         background: #fff;
         border-radius: 16px;
-        padding: 40px;
+        padding: 50px 40px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
 
@@ -116,19 +128,16 @@ const SupportIcon = {
           box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
         }
 
-        // &.left-card {
-        //   border-top: 4px solid #4e73df;
-        // }
-
-        // &.right-card {
-        //   border-top: 4px solid #36b9cc;
-        // }
-
         .card-content {
           display: flex;
           flex-direction: column;
           text-align: left;
+          justify-content: center;
 
+          div {
+            margin: 0;
+            padding: 0;
+          }
           .icon-wrapper {
             margin-bottom: 25px;
 

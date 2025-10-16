@@ -5,7 +5,9 @@
     <div>
       <aboutPageTop :data="qjzsData?.aboutTopImg" />
     </div>
-    <div><quanjingtu /></div>
+    <div><quanjingtu :title="qjzsData?.qjzsTitle"/></div>
+    <!-- 给我们留言 -->
+    <lliuYan v-if="qjzsData?.liuyanData" :config="qjzsData?.liuyanData" />
     <!-- 底部 -->
     <PageBottom :footerData="footerData" />
   </div>
@@ -15,10 +17,11 @@
 import { onMounted, ref } from "vue";
 import { getWebDatas } from "@/api/general";
 import aboutPageTop from "./components/aboutPageTop.vue"; // 顶部关于万德
+import lliuYan from "@/view/contact/components/lliuYan.vue"; // 给我们留言
+
 // import { qjzsData, footerData } from "@/util/mockData.js";
 import quanjingtu from "./components/quanjingtu.vue";
 import PageBottom from "@/components/PageBottom/index.vue"; // 底部
-
 
 const footerData = ref();
 const qjzsData = ref();
@@ -26,7 +29,7 @@ const submitData = async () => {
   try {
     const resData = await getWebDatas({
       pageNumber: 4,
-      language: "zh",
+      language: localStorage.getItem("Language") || "zh",
     });
     footerData.value = resData.footerData;
     qjzsData.value = resData.qjzsData;
