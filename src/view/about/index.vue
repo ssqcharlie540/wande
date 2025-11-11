@@ -1,8 +1,6 @@
 <template>
   <!-- 关于万德 -->
   <div class="homePage">
-    <div style="height: 105px"></div>
-
     <!-- 固定在右侧的锚点 -->
     <div class="anchor-container">
       <el-anchor class="fixed-anchor" :offset="100" @click="handleAnchorClick">

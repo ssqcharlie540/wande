@@ -39,11 +39,30 @@ const routes = [
       import(/* webpackChunkName:"" */ "../src/view/contact/contact.vue"),
   },
   {
+    // 公司动态详情
+    path: "/news_detail",
+    name: "news_detail",
+    component: () =>
+      import(/* webpackChunkName:"" */ "../src/view/news_list/news_detail.vue"),
+    props: (route) => ({
+      newsId: route.params.id, // 将id作为props传递给组件
+    }),
+  },
+  {
+    // 公司动态
+    path: "/news_list",
+    name: "news_list",
+    component: () =>
+      import(/* webpackChunkName:"" */ "../src/view/news_list/news_list.vue"),
+  },
+  {
     // 询盘 表格页面
     path: "/getInquiries",
     name: "getInquiries",
     component: () =>
-      import(/* webpackChunkName:"" */ "../src/view/getInquiries/getInquiries.vue"),
+      import(
+        /* webpackChunkName:"" */ "../src/view/getInquiries/getInquiries.vue"
+      ),
   },
 ];
 

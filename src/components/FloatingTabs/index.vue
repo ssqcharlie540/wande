@@ -106,6 +106,7 @@
       </div>
     </div>
   </div>
+  <div style="height: 105px"></div>
 </template>
 
 <script setup>
@@ -269,13 +270,29 @@ const keepDropdownOpen = (index) => {
 const navigateTo = (path, title) => {
   console.log("Navigating to:", path);
   console.log("title:", title);
+  console.log("route.path---->", route.path);
+  // if (
+  //   (title === "ENGLISH" || title === "中文") &&
+  //   route.path === "news_detail"
+  // ) {
+  //   router.push("/news_list");
+  //   return;
+  // }
   if (title === "ENGLISH") {
+    if (route.path == "/news_detail") {
+      router.push("/news_list");
+    }
     emits("onLanguage", "en");
     return;
   } else if (title === "中文") {
+    if (route.path == "/news_detail") {
+      router.push("/news_list");
+    }
+
     emits("onLanguage", "zh");
     return;
   }
+  // 如果是在新闻详情页切换 则跳转到新闻列表
 
   if (!path || path === route.path) {
     return;
@@ -350,7 +367,7 @@ const navigateTo = (path, title) => {
   display: flex;
   justify-content: center;
   gap: 20px;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   align-items: center;
   flex-wrap: wrap;

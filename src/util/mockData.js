@@ -703,6 +703,64 @@ export const projectData = {
     },
   ],
 };
+// 公司动态
+export const newslistData = {
+  aboutTopImg: {
+    maintitle: "公司动态",
+    backgroundImg:
+      "https://wandepack.com/image/default/4876B3BECDC9418BBC0BD990E16F0E14-6-2.jpg", // https://www.wandepack.com/api/getImage?image=gywande_banner_1.jpg
+  },
+  itemsData: [
+    {
+      image:
+        "https://wandepack.com/image/default/4876B3BECDC9418BBC0BD990E16F0E14-6-2.jpg",
+      title: "PE重包装使用中的注意事项与小贴士",
+      content: "这是第一个项目的内容描述，展示了组件的布局和样式。",
+      time: "2024-06-15",
+      detail: {
+        id: 1,
+        title: "PE重包装使用中的注意事项与小贴士",
+        date: "2025-07-22",
+        // 修改为数组格式，包含文字和图片的混合内容
+        detail: [
+          {
+            type: "text",
+            content:
+              "在现代包装行业，PE重包装袋以其优良的物理特性和广泛的应用领域受到了极大的欢迎。但在使用这些袋子时，我们也需要注意一些关键事项，以确保包装效果和产品安全。",
+          },
+          {
+            type: "image",
+            url: "https://wandepack.com/image/default/4876B3BECDC9418BBC0BD990E16F0E14-6-2.jpg",
+          },
+          {
+            type: "text",
+            content:
+              "首先，选择重包装袋的材料至关重要。市场上有多种厚度和类型的PE袋，您需要根据产品的特性来决定最合适的材料。",
+          },
+          {
+            type: "image",
+            url: "https://wandepack.com/image/default/4876B3BECDC9418BBC0BD990E16F0E14-6-2.jpg",
+            alt: "材料选择示意图",
+          },
+          {
+            type: "text",
+            content:
+              "其次，密封性也是一个不能忽视的因素。确保PE重包装袋的封口处无漏气现象，这对于保持产品的新鲜度和防止污染非常重要。",
+          },
+          {
+            type: "text",
+            content:
+              "最后，注意存储环境。PE袋应存放在阴凉干燥的地方，避免阳光直射和高温环境，以延长使用寿命。",
+          },
+          {
+            type: "image",
+            url: "https://wandepack.com/image/default/4876B3BECDC9418BBC0BD990E16F0E14-6-2.jpg",
+          },
+        ],
+      },
+    },
+  ],
+};
 // 底部数据
 export const footerData = {
   about: {

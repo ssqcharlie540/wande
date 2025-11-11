@@ -1,6 +1,5 @@
 <template>
   <div class="homePage">
-    <div style="height: 105px"></div>
     <!-- 顶部关于万德 -->
     <aboutPageTop :data="contactData?.aboutTopImg" />
     <!-- 联系方式 -->
