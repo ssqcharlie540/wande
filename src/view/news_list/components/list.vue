@@ -62,12 +62,23 @@ const goToNewsDetail = (item) => {
   // });
   // 将对象转换成JSON字符串并存入sessionStorage
   sessionStorage.setItem("newsItemData", JSON.stringify(item));
-  router.push({
-    name: "news_detail", // 必须使用命名路由
-    // params: {
-    //   item: item,
-    // },
-  });
+  const lang = localStorage.getItem("Language") || "zh";
+  if (lang === "en") {
+    router.push({
+      name: "ennews_detail", // 必须使用命名路由
+      // params: {
+      //   item: item,
+      // },
+    });
+    return;
+  } else {
+    router.push({
+      name: "news_detail", // 必须使用命名路由
+      // params: {
+      //   item: item,
+      // },
+    });
+  }
 };
 
 // 从时间字段中提取天数
@@ -176,7 +187,7 @@ const formatDate = (time) => {
   transform: translateX(2px);
 }
 .item-title2 {
-   font-size: 20px !important;
+  font-size: 20px !important;
   font-weight: 400;
 }
 

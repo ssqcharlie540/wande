@@ -9,7 +9,7 @@
       <div class="divider-with-logo">
         <div class="divider-line"></div>
         <img
-          src="@/assets/wande_logo.png"
+          src="https://www.wandepack.com/api/getImage?image=logo_wande_1.png"
           alt="公司Logo"
           class="divider-logo"
         />

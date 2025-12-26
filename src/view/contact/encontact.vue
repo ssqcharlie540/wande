@@ -19,6 +19,15 @@
         :gongsiLocation="item.gongsiLocation"
         :img="item.img"
       />
+      <!-- <ditu
+        v-for="(item, index) in contactData?.gongsiData"
+        :key="index"
+        :title="item.title"
+        :gongsiData="{
+          gongsilatlng: item.gongsilatlng,
+          gongsiLocation: item.gongsiLocation,
+        }"
+      /> -->
     </div>
 
     <!-- 给我们留言 -->
@@ -44,7 +53,6 @@ import aboutPageTop from "@/view/about/components/aboutPageTop.vue"; // 顶部�
 import lianxifangshi from "./components/lianxifangshi.vue"; // 联系方式
 import ditu from "./components/ditu.vue"; // 地图
 import weizhi from "./components/weizhi.vue"; // 位置
-
 import lliuYan from "./components/lliuYan.vue"; // 给我们留言
 import yeWuFanWei from "./components/yeWuFanWei.vue"; // 业务范围
 // import Gongsizizhi from "./components/gongsizizhi.vue"; // 公司资质
@@ -137,7 +145,7 @@ const submitData = async () => {
   try {
     const resData = await getWebDatas({
       pageNumber: 5,
-      language: "zh",
+      language: "en",
     });
     footerData.value = resData.footerData;
     contactData.value = resData.contactData;

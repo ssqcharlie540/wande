@@ -810,7 +810,7 @@ export const footerData = {
     altText: "万德公众号二维码",
   },
   footerInfo: {
-    logoUrl: "https://www.wandepack.com/api/getImage?image=wande_logo_menu.png",
+    logoUrl: "https://www.wandepack.com/api/getImage?image=logo_wande_1.png",
     companyName: "河南万德包装有限公司",
     icpNumber: "豫ICP备2025138376号-1",
   },

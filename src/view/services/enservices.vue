@@ -4,7 +4,7 @@
     <div>
       <aboutPageTop :data="qjzsData?.aboutTopImg" />
     </div>
-    <div><quanjingtu :title="qjzsData?.qjzsTitle"/></div>
+    <div><quanjingtu :title="qjzsData?.qjzsTitle" /></div>
     <!-- 给我们留言 -->
     <lliuYan v-if="qjzsData?.liuyanData" :config="qjzsData?.liuyanData" />
     <!-- 底部 -->
@@ -28,7 +28,7 @@ const submitData = async () => {
   try {
     const resData = await getWebDatas({
       pageNumber: 4,
-      language: "zh",
+      language: "en",
     });
     footerData.value = resData.footerData;
     qjzsData.value = resData.qjzsData;

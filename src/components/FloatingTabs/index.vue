@@ -13,7 +13,7 @@
         <!-- 首先插入logo -->
         <div class="tab-item-container">
           <div class="tab-item logo-tab">
-            <img src="@/assets/万德logo.png" class="tab-logo" alt="万德logo" />
+            <img src="https://www.wandepack.com/api/getImage?image=logo_wande_1.png" class="tab-logo" alt="万德logo" />
           </div>
         </div>
 
@@ -153,6 +153,9 @@ watch(isMobileView, (newVal) => {
     closeMobileMenu();
   }
 });
+watch(props.tabsData, (newVal) => {
+  console.log("监视tabsData--》", newVal);
+});
 
 // 滚动处理
 const handleScroll = () => {
@@ -183,6 +186,8 @@ const closeMobileMenu = () => {
 
 // 处理移动端菜单项点击
 const handleMobileItemClick = (tab) => {
+  console.log("tab->", tab);
+
   navigateTo(tab.path, tab.title);
   closeMobileMenu();
 };
@@ -210,45 +215,64 @@ onBeforeUnmount(() => {
   document.body.style.overflow = "";
 });
 
-// 原有Tab逻辑保持不变
-const tabs = ref([
-  {
-    title: "首页",
-    path: "/",
-    hasDropdown: false,
-  },
-  {
-    title: "关于万德",
-    path: "/about",
-    hasDropdown: false,
-  },
-  {
-    title: "产品及服务",
-    path: "/products",
-    hasDropdown: false,
-  },
-  {
-    title: "全景展示",
-    path: "/services",
-    hasDropdown: false,
-  },
-  {
-    title: "联系我们",
-    path: "/contact",
-    hasDropdown: false,
-  },
-  {
-    title: "ENGLISH",
-    path: "/ENGLISH",
-    hasDropdown: false,
-  },
-]);
+// // 原有Tab逻辑保持不变
+// const tabs = ref([
+//   {
+//     title: "首页",
+//     path: "/",
+//     hasDropdown: false,
+//   },
+//   {
+//     title: "关于万德",
+//     path: "/about",
+//     hasDropdown: false,
+//   },
+//   {
+//     title: "产品及服务",
+//     path: "/products",
+//     hasDropdown: false,
+//   },
+//   {
+//     title: "全景展示",
+//     path: "/services",
+//     hasDropdown: false,
+//   },
+//   {
+//     title: "联系我们",
+//     path: "/contact",
+//     hasDropdown: false,
+//   },
+//   {
+//     title: "ENGLISH",
+//     path: "/ENGLISH",
+//     hasDropdown: false,
+//   },
+// ]);
 
+// 修复后的 isActive 函数 - 简单精确匹配
 const isActive = (tab) => {
-  return (
-    route.path === tab.path ||
-    (tab.path !== "/" && route.path.startsWith(tab.path))
-  );
+  const currentPath = route.path;
+  const tabPath = tab.path;
+
+  // 处理首页特殊逻辑
+  if (tabPath === "/" || tabPath === "/en") {
+    // 对于首页，只有当路径完全匹配时才激活
+    return currentPath === tabPath;
+  }
+
+  // 处理语言切换标签
+  if (tab.title === "ENGLISH" || tab.title === "中文") {
+    // 根据当前路径判断语言
+    const isEnglishPath = currentPath.startsWith("/en");
+    if (tab.title === "ENGLISH") {
+      return isEnglishPath;
+    } else if (tab.title === "中文") {
+      return !isEnglishPath;
+    }
+  }
+
+  // 对于其他页面，使用精确匹配
+  return currentPath === tabPath;
 };
 
 const handleMouseEnter = (index) => {
@@ -279,16 +303,11 @@ const navigateTo = (path, title) => {
   //   return;
   // }
   if (title === "ENGLISH") {
-    if (route.path == "/news_detail") {
-      router.push("/news_list");
-    }
+    router.push("/en");
     emits("onLanguage", "en");
     return;
   } else if (title === "中文") {
-    if (route.path == "/news_detail") {
-      router.push("/news_list");
-    }
-
+    router.push("/");
     emits("onLanguage", "zh");
     return;
   }
@@ -300,6 +319,7 @@ const navigateTo = (path, title) => {
 
   router.push(path);
 };
+
 </script>
 
 <style scoped>

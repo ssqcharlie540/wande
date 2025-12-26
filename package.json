@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/sitemap-generator.js",
+    "postbuild": "node scripts/sitemap-generator.js",
     "preview": "vite preview",
     "sitemap": "node scripts/sitemap-generator.js"
   },
   "dependencies": {
+    "@vueuse/head": "^1.1.1",
     "axios": "^1.12.2",
     "element-plus": "^2.10.4",
     "photo-sphere-viewer": "^4.8.1",

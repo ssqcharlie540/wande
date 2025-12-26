@@ -77,7 +77,7 @@ const submitData = async () => {
   try {
     const resData = await getWebDatas({
       pageNumber: 2,
-      language: "zh",
+      language: "en",
     });
     footerData.value = resData.footerData;
     aboutData.value = resData.aboutData;

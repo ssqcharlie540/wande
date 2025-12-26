@@ -40,7 +40,7 @@ const submitData = async () => {
   try {
     const resData = await getWebDatas({
       pageNumber: 8,
-      language: localStorage.getItem("Language") || "zh",
+      language: "en",
     });
     footerData.value = resData.footerData;
     newslistData.value = resData.newslistData;

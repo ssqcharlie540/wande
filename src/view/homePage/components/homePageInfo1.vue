@@ -2,7 +2,7 @@
   <div class="black-layout">
     <!-- 上部logo -->
     <div class="logo-section">
-      <img src="@/assets/wande_logo.png" alt="公司Logo" class="logo" />
+      <img src="https://www.wandepack.com/api/getImage?image=logo_wande_1.png" alt="公司Logo" class="logo" />
     </div>
 
     <!-- 下部图片网格 -->

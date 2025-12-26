@@ -29,7 +29,7 @@
         <source src="@/assets/mp4/首页视频.mp4" type="video/mp4" />
         <track
           kind="subtitles"
-          src="@/assets/mp4/wande_logo.png"
+          src="https://www.wandepack.com/api/getImage?image=logo_wande_1.png"
           srclang="zh"
           label="中文"
           default
