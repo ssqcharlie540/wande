@@ -93,8 +93,7 @@ const props = defineProps({
 });
 const navigateTo = (path) => {
   console.log("Navigating to:", path);
-
-  router.push(path);
+  window.location.href = path;
 };
 </script>
 

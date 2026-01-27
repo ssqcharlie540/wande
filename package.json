@@ -5,15 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/sitemap-generator.js",
-    "postbuild": "node scripts/sitemap-generator.js",
-    "preview": "vite preview",
-    "sitemap": "node scripts/sitemap-generator.js"
+    "build": "vite build",
+    "build:sitemap": "npm run build && npm run sitemap",
+    "preview": "vite preview --port 8080 --host",
+    "sitemap": "node scripts/sitemap-generator.js",
+    "clean": "rimraf dist",
+    "deploy": "npm run build:sitemap"
   },
   "dependencies": {
     "@vueuse/head": "^1.1.1",
     "axios": "^1.12.2",
     "element-plus": "^2.10.4",
+    "express": "^5.2.1",
     "photo-sphere-viewer": "^4.8.1",
     "qqmap": "^1.0.1",
     "tlbs-map-vue": "^1.3.1",
@@ -23,6 +26,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
     "sass-embedded": "^1.89.2",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vite-plugin-html": "^3.2.2"
   }
 }

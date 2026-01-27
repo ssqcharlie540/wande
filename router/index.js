@@ -1,4 +1,8 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from "vue-router";
 const routes = [
   // 中文版首页
   {
@@ -70,7 +74,8 @@ const routes = [
     name: "enprojectServe",
     component: () => import("../src/view/projectServe/enprojectServe.vue"),
     meta: {
-      title: "WANDE Packaging Products | PE Valve Bags, Square Bottom Bags, Custom Chemical Packaging Solutions",
+      title:
+        "WANDE Packaging Products | PE Valve Bags, Square Bottom Bags, Custom Chemical Packaging Solutions",
       description:
         "WANDE offers valve bags, square-bottom bags, and PE valve bags for chemical packaging, featuring excellent sealing, efficient filling, stable stacking, and eco-friendly design for carbon black, rubber, resin, catalysts, and more.",
       keywords:
@@ -86,8 +91,7 @@ const routes = [
       title: "万德包装工厂全景展示 | 智能生产线与现代化生产车间",
       description:
         "欢迎参观万德包装智能化生产车间，展示先进的全自动制袋生产线、德国W&H设备、高效流水线与科学质量管理体系，体现匠心工艺与智造实力。",
-      keywords:
-        "包装工厂, 生产线展示, 智能车间, 制袋设备, 生产工艺",
+      keywords: "包装工厂, 生产线展示, 智能车间, 制袋设备, 生产工艺",
     },
   },
   // 英文版全景展示
@@ -96,7 +100,8 @@ const routes = [
     name: "enservices",
     component: () => import("../src/view/services/enservices.vue"),
     meta: {
-      title: "WANDE Packaging Factory Panoramic Display | Smart Production Line & Modern Workshop",
+      title:
+        "WANDE Packaging Factory Panoramic Display | Smart Production Line & Modern Workshop",
       description:
         "Explore WANDE's intelligent production workshop, featuring automated bag-making lines, German W&H equipment, efficient workflows, and scientific quality management systems, showcasing craftsmanship and smart manufacturing capabilities.",
       keywords:
@@ -112,8 +117,7 @@ const routes = [
       title: "联系我们 - 万德包装 | 化工包装咨询、业务合作与技术支持",
       description:
         "欢迎联系万德包装，获取化工包装解决方案、产品咨询、业务合作与技术支援。我们提供国内国际业务支持，工厂位于河南安阳，营销中心在郑州，7×24小时服务。",
-      keywords:
-        "包装咨询, 业务合作, 技术支持, 联系方式, 化工包装服务",
+      keywords: "包装咨询, 业务合作, 技术支持, 联系方式, 化工包装服务",
     },
   },
   // 英文版联系我们
@@ -122,7 +126,8 @@ const routes = [
     name: "encontact",
     component: () => import("../src/view/contact/encontact.vue"),
     meta: {
-      title: "Contact WANDE Packaging | Chemical Packaging Inquiry, Business Cooperation & Technical Support",
+      title:
+        "Contact WANDE Packaging | Chemical Packaging Inquiry, Business Cooperation & Technical Support",
       description:
         "Contact WANDE Packaging for chemical packaging solutions, product inquiries, business cooperation, and technical support. We offer domestic and international services with factories in Anyang and a marketing center in Zhengzhou, available 24/7.",
       keywords:
@@ -138,8 +143,7 @@ const routes = [
       title: "万德包装公司新闻 | 行业动态、展会参与与企业资讯",
       description:
         "获取万德包装最新企业动态、行业展会参与、技术突破与客户合作案例，了解化工包装领域发展趋势与万德包装的创新实践。",
-      keywords:
-        "包装新闻, 行业动态, 展会参与, 企业资讯, 化工包装趋势",
+      keywords: "包装新闻, 行业动态, 展会参与, 企业资讯, 化工包装趋势",
     },
   },
   // 英文版新闻列表
@@ -148,7 +152,8 @@ const routes = [
     name: "ennews_list",
     component: () => import("../src/view/news_list/ennews_list.vue"),
     meta: {
-      title: "WANDE Packaging Company News | Industry Updates, Exhibition Participation & Corporate Insights",
+      title:
+        "WANDE Packaging Company News | Industry Updates, Exhibition Participation & Corporate Insights",
       description:
         "Stay updated with WANDE Packaging's latest news, industry exhibition participation, technological breakthroughs, and customer case studies to understand trends and innovations in chemical packaging.",
       keywords:
@@ -166,7 +171,7 @@ const routes = [
       keywords: "新闻,动态,详情,化工包装",
     },
     props: (route) => ({
-      newsId: route.params.id,
+      newsId: route.query.id || "default", // 使用 query.id 而不是 params.id
     }),
   },
   // 英文版新闻详情
@@ -190,14 +195,13 @@ const routes = [
     component: () => import("../src/view/getInquiries/getInquiries.vue"),
     meta: {
       title: "询盘 - 万德包装 | 产品咨询与报价",
-      description:
-        "提交询盘获取万德包装产品详细信息和报价",
+      description: "提交询盘获取万德包装产品详细信息和报价",
       keywords: "询盘,报价,产品咨询,化工包装",
     },
   },
 ];
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     // 始终滚动到顶部

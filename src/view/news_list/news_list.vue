@@ -1,14 +1,22 @@
 <!-- 公司动态 -->
  <template>
-  <!-- 全景展示 -->
-  <div class="homePage">
-    <aboutPageTop :data="newslistData?.aboutTopImg" />
-    <ItemsList :items="newslistData?.itemsData" />
-    <!-- 给我们留言 -->
-    <lliuYan
-      v-if="newslistData?.liuyanData"
-      :config="newslistData?.liuyanData"
+  <div class="home">
+    <!-- 浮动标签组件 -->
+    <FloatingTabs
+      v-if="tabsData && tabsData.length > 0"
+      :tabsData="tabsData"
+      @onLanguage="onLanguage"
     />
+    <!-- 全景展示 -->
+    <div class="homePage">
+      <aboutPageTop :data="newslistData?.aboutTopImg" />
+      <ItemsList :items="newslistData?.itemsData" />
+      <!-- 给我们留言 -->
+      <lliuYan
+        v-if="newslistData?.liuyanData"
+        :config="newslistData?.liuyanData"
+      />
+    </div>
     <!-- 底部 -->
     <PageBottom :footerData="footerData" />
   </div>
@@ -18,6 +26,7 @@
 // import { useHead } from 'vue'
 import { onMounted, ref } from "vue";
 import { getWebDatas } from "@/api/general";
+import FloatingTabs from "@/components/FloatingTabs/index.vue";
 import aboutPageTop from "./components/aboutPageTop.vue"; // 顶部公司动态
 import lliuYan from "@/view/contact/components/lliuYan.vue"; // 给我们留言
 import ItemsList from "./components/list.vue";
@@ -34,16 +43,26 @@ import PageBottom from "@/components/PageBottom/index.vue"; // 底部
 //     },
 //   ],
 // });
+const tabsData = ref([
+  { title: "首页", path: "/" },
+  { title: "关于万德", path: "/about" },
+  { title: "公司新闻", path: "/news_list" },
+  { title: "产品及服务", path: "/products" },
+  { title: "全景展示", path: "/services" },
+  { title: "联系我们", path: "/contact" },
+  { title: "ENGLISH", path: "/en" },
+]);
 const footerData = ref();
 const newslistData = ref();
 const submitData = async () => {
   try {
     const resData = await getWebDatas({
       pageNumber: 8,
-      language: localStorage.getItem("Language") || "zh",
+      language: "zh",
     });
     footerData.value = resData.footerData;
     newslistData.value = resData.newslistData;
+    tabsData.value = resData.tabsData;
     sessionStorage.setItem("footerData", JSON.stringify(resData.footerData));
     console.log("提交结果:", resData);
   } catch (error) {
@@ -56,8 +75,16 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.home {
+  width: 100vw;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .homePage {
-  position: relative;
-  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 </style>

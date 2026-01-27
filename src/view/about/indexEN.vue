@@ -1,8 +1,15 @@
 <template>
-  <!-- 关于万德 -->
-  <div class="homePage">
-    <!-- 固定在右侧的锚点 -->
-    <div class="anchor-container">
+  <div class="home">
+    <!-- 浮动标签组件 -->
+    <FloatingTabs
+      v-if="tabsData && tabsData.length > 0"
+      :tabsData="tabsData"
+      @onLanguage="onLanguage"
+    />
+    <!-- 关于万德 -->
+    <div class="homePage">
+      <!-- 固定在右侧的锚点 -->
+      <!-- <div class="anchor-container">
       <el-anchor class="fixed-anchor" :offset="100" @click="handleAnchorClick">
         <el-anchor-link
           v-for="(item, index) in aboutData?.anchorlinkData"
@@ -11,45 +18,46 @@
           :title="item.title"
         />
       </el-anchor>
-    </div>
+    </div> -->
 
-    <!-- 内容部分 -->
-    <div>
-      <aboutPageTop :data="aboutData?.aboutTopImg" />
-    </div>
+      <!-- 内容部分 -->
+      <div>
+        <aboutPageTop :data="aboutData?.aboutTopImg" />
+      </div>
 
-    <div id="aboutPageBrief">
-      <!-- 公司简介 -->
-      <aboutPageBrief :aboutPageBrirfData="aboutData?.gongSiJianJie" />
+      <div id="aboutPageBrief">
+        <!-- 公司简介 -->
+        <aboutPageBrief :aboutPageBrirfData="aboutData?.gongSiJianJie" />
+      </div>
+      <div id="aboutPageCourse">
+        <!-- 发展历程 -->
+        <aboutPageCourse
+          :title="aboutData?.shijianxianData.title"
+          :list="aboutData?.shijianxianData.shijianxianItem"
+        />
+      </div>
+      <div id="aboutPageBrief2">
+        <!-- 公司介绍 -->
+        <aboutPageGongsiwenhua :tablistData="aboutData?.gongsiwenhuaData" />
+      </div>
+      <div id="aboutPageBrief3" v-if="aboutData?.employeeImagesData">
+        <!-- 员工风采 -->
+        <aboutPageYuangong
+          :title="aboutData?.employeeImagesData?.title"
+          :images="aboutData?.employeeImagesData?.employeeImagesItem"
+        />
+      </div>
+      <!-- 我们的资质及荣誉 -->
+      <div id="aboutPageBrief4">
+        <aboutPageGongsizizhi
+          :images="aboutData?.gongsizizhiData?.images"
+          :title="aboutData?.gongsizizhiData?.title"
+          :backgroundImage="aboutData?.gongsizizhiData?.backgroundImage"
+        />
+      </div>
+      <!-- 给我们留言 -->
+      <lliuYan v-if="aboutData?.liuyanData" :config="aboutData?.liuyanData" />
     </div>
-    <div id="aboutPageCourse">
-      <!-- 发展历程 -->
-      <aboutPageCourse
-        :title="aboutData?.shijianxianData.title"
-        :list="aboutData?.shijianxianData.shijianxianItem"
-      />
-    </div>
-    <div id="aboutPageBrief2">
-      <!-- 公司介绍 -->
-      <aboutPageGongsiwenhua :tablistData="aboutData?.gongsiwenhuaData" />
-    </div>
-    <div id="aboutPageBrief3" v-if="aboutData?.employeeImagesData">
-      <!-- 员工风采 -->
-      <aboutPageYuangong
-        :title="aboutData?.employeeImagesData?.title"
-        :images="aboutData?.employeeImagesData?.employeeImagesItem"
-      />
-    </div>
-    <!-- 我们的资质及荣誉 -->
-    <div id="aboutPageBrief4">
-      <aboutPageGongsizizhi
-        :images="aboutData?.gongsizizhiData?.images"
-        :title="aboutData?.gongsizizhiData?.title"
-        :backgroundImage="aboutData?.gongsizizhiData?.backgroundImage"
-      />
-    </div>
-    <!-- 给我们留言 -->
-    <lliuYan v-if="aboutData?.liuyanData" :config="aboutData?.liuyanData" />
     <!-- 底部 -->
     <PageBottom :footerData="footerData" />
   </div>
@@ -59,7 +67,7 @@
 import { onMounted, ref, getCurrentInstance } from "vue";
 import { getWebDatas } from "@/api/general";
 import lliuYan from "@/view/contact/components/lliuYan.vue"; // 给我们留言
-
+import FloatingTabs from "@/components/FloatingTabs/index.vue";
 import aboutPageTop from "./components/aboutPageTop.vue"; // 顶部关于万德
 import aboutPageBrief from "./components/aboutPageBrief.vue"; // 公司简介
 import aboutPageCourse from "./components/aboutPageCourse.vue"; // 创新历程
@@ -72,7 +80,15 @@ import PageBottom from "@/components/PageBottom/index.vue"; // 底部
 // import { aboutData, footerData } from "@/util/mockData.js";
 const footerData = ref();
 const aboutData = ref();
-
+const tabsData = ref([
+  { title: "HOME", path: "/en" },
+  { title: "ABOUT US", path: "/aboutEN" },
+  { title: "COMPANY NEWS", path: "/news_listEN" },
+  { title: "PRODUCT AND SERVICE", path: "/productsEN" },
+  { title: "FACTORY DISPLAY ", path: "/servicesEN" },
+  { title: "CONTACT", path: "/contactEN" },
+  { title: "中文", path: "/" },
+]);
 const submitData = async () => {
   try {
     const resData = await getWebDatas({
@@ -81,6 +97,7 @@ const submitData = async () => {
     });
     footerData.value = resData.footerData;
     aboutData.value = resData.aboutData;
+    tabsData.value = resData.tabsData;
     console.log("提交结果:", resData);
   } catch (error) {
     console.error("提交失败:", error);
@@ -137,8 +154,19 @@ const handleChange = (href) => {
 </script>
 
 <style scoped>
+.home {
+  width: 100vw;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .homePage {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  /* position: relative;
+  margin-top: 5280px !important; */
 }
 
 .anchor-container {

@@ -1,3 +1,4 @@
+<!-- 模块模板 -->
 <template>
   <div class="homePageContent">
     <div class="content-wrapper">
@@ -60,49 +61,42 @@ const getImageUrl = (path) => {
 <style scoped lang="scss">
 .homePageContent {
   width: 100%;
-  height: 600px; /* 固定高度 */
+  min-height: 400px; /* 使用min-height而不是固定height */
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #d0cdc6;
-  overflow: hidden; /* 防止内容溢出 */
+  padding: 20px;
+  box-sizing: border-box; /* 确保padding不会增加总高度 */
 
   .content-wrapper {
     width: 100%;
     max-width: 1200px;
-    height: 100%; /* 继承高度 */
 
     .layout-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 100%; /* 固定容器高度 */
+      min-height: 300px; /* 设置最小高度 */
 
       // 左侧标题部分
       .title-section {
         flex: 1;
         padding-right: 40px;
-        max-height: 100%; /* 限制最大高度 */
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* 垂直居中 */
 
         .main-title {
           color: #2c3e50;
-          font-size: 2.8rem; /* 稍微减小字体 */
+          font-size: 3rem;
           font-weight: 700;
-          margin-bottom: 10px; /* 减小间距 */
+          margin-bottom: 15px;
           line-height: 1.2;
-          word-wrap: break-word;
-          overflow: hidden;
         }
 
         .sub-title {
           color: #34495e;
-          font-size: 1.3rem; /* 减小字体 */
+          font-size: 1.5rem;
           font-weight: 500;
           margin: 0;
-          line-height: 1.4;
         }
       }
 
@@ -112,44 +106,48 @@ const getImageUrl = (path) => {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
+        min-height: 300px; /* 确保图片区域有最小高度 */
 
         .image-container {
           position: relative;
           width: 90%;
-          height: 80%; /* 限制高度为容器的80% */
+          // max-width: 700px; /* 限制最大宽度 */
+          height: 100%;
+          min-height: 300px; /* 设置最小高度 */
           display: flex;
           justify-content: center;
           align-items: center;
 
           .main-image {
             position: absolute;
-            width: 95%;
-            max-width: 500px; /* 减小最大宽度 */
-            height: auto;
-            max-height: 90%; /* 限制最大高度 */
-            object-fit: contain;
+            width: 95%; /* 使用百分比而不是固定宽度 */
+            max-width: 600px;
+            height: auto; /* 高度自适应 */
+            object-fit: contain; /* 保持图片比例 */
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             opacity: 0;
+            // 动画效果
             animation: slideInLeft 1s ease-out forwards;
             animation-delay: 0.3s;
           }
 
           .overlay-image {
             position: absolute;
-            width: 50%; /* 减小宽度 */
-            max-width: 250px; /* 减小最大宽度 */
-            height: auto;
-            max-height: 60%; /* 限制最大高度 */
-            object-fit: contain;
+            width: 60%; /* 使用百分比而不是固定宽度 */
+            max-width: 350px;
+            height: auto; /* 高度自适应 */
+            object-fit: contain; /* 保持图片比例 */
             border-radius: 10px;
+            // 定位在主图片中间
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2;
+            // 初始位置在下方外部
             opacity: 0;
+            // 动画效果
             animation: slideInBottom 1s ease-out forwards;
             animation-delay: 0.8s;
           }
@@ -162,7 +160,7 @@ const getImageUrl = (path) => {
 // 左侧滑入动画
 @keyframes slideInLeft {
   0% {
-    left: 30%;
+    left: 30%; /* 调整动画起始位置 */
     opacity: 0;
   }
   100% {
@@ -174,7 +172,7 @@ const getImageUrl = (path) => {
 // 底部滑入动画
 @keyframes slideInBottom {
   0% {
-    transform: translate(-50%, calc(-50% + 30px)); /* 减小移动距离 */
+    transform: translate(-50%, calc(-50% + 50px));
     opacity: 0;
   }
   100% {
@@ -186,28 +184,32 @@ const getImageUrl = (path) => {
 // 响应式设计 - 平板
 @media (max-width: 1024px) {
   .homePageContent {
-    height: 300px; /* 平板固定高度 */
+    min-height: 35vh;
     
     .content-wrapper {
       .layout-container {
+        min-height: 250px;
+        
         .title-section {
           .main-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
           }
           
           .sub-title {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
           }
         }
         
         .image-section {
+          min-height: 250px;
+          
           .image-container {
             .main-image {
-              max-width: 400px;
+              width: 70%;
             }
             
             .overlay-image {
-              max-width: 200px;
+              width: 50%;
             }
           }
         }
@@ -219,20 +221,19 @@ const getImageUrl = (path) => {
 // 响应式设计 - 手机
 @media (max-width: 768px) {
   .homePageContent {
-    height: auto; /* 手机恢复自适应 */
-    min-height: 400px; /* 手机最小高度 */
+    height: auto;
+    min-height: 50vh;
     padding: 30px 20px;
 
     .content-wrapper {
       .layout-container {
         flex-direction: column;
         gap: 30px;
-        height: auto;
+        min-height: auto;
 
         .title-section {
           padding-right: 0;
           text-align: center;
-          height: auto;
 
           .main-title {
             font-size: 2.2rem;
@@ -244,12 +245,12 @@ const getImageUrl = (path) => {
         }
 
         .image-section {
-          height: 250px;
+          min-height: 200px;
           width: 100%;
           
           .image-container {
             width: 100%;
-            height: 100%;
+            min-height: 200px;
 
             .main-image {
               width: 70%;
@@ -270,7 +271,7 @@ const getImageUrl = (path) => {
 // 超小屏幕优化
 @media (max-width: 480px) {
   .homePageContent {
-    min-height: 350px;
+    min-height: 60vh;
     padding: 20px 15px;
     
     .content-wrapper {
@@ -286,9 +287,11 @@ const getImageUrl = (path) => {
         }
         
         .image-section {
-          height: 200px;
+          min-height: 180px;
           
           .image-container {
+            min-height: 180px;
+            
             .main-image {
               width: 80%;
             }

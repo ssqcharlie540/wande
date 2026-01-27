@@ -1,37 +1,45 @@
 <template>
-  <div class="homePage">
-    <!-- 顶部关于万德 -->
-    <aboutPageTop :data="contactData?.aboutTopImg" />
-    <!-- 联系方式 -->
-    <lianxifangshi :contact-data="contactData?.lianxifangshi" />
-
-    <!-- 业务范围 -->
-    <yeWuFanWei
-      :title="contactData?.YeWuFanWeiData?.title"
-      :img="contactData?.YeWuFanWeiData?.img"
+  <div class="home">
+    <!-- 浮动标签组件 -->
+    <FloatingTabs
+      v-if="tabsData && tabsData.length > 0"
+      :tabsData="tabsData"
+      @onLanguage="onLanguage"
     />
-    <!-- 地图 -->
-    <div v-if="contactData?.gongsiData">
-      <weizhi
-        v-for="(item, index) in contactData?.gongsiData"
-        :key="index"
-        :title="item.title"
-        :gongsiLocation="item.gongsiLocation"
-        :img="item.img"
+    <div class="homePage">
+      <!-- 顶部关于万德 -->
+      <aboutPageTop :data="contactData?.aboutTopImg" />
+      <!-- 联系方式 -->
+      <lianxifangshi :contact-data="contactData?.lianxifangshi" />
+
+      <!-- 业务范围 -->
+      <yeWuFanWei
+        :title="contactData?.YeWuFanWeiData?.title"
+        :img="contactData?.YeWuFanWeiData?.img"
       />
-    </div>
+      <!-- 地图 -->
+      <div v-if="contactData?.gongsiData">
+        <weizhi
+          v-for="(item, index) in contactData?.gongsiData"
+          :key="index"
+          :title="item.title"
+          :gongsiLocation="item.gongsiLocation"
+          :img="item.img"
+        />
+      </div>
 
-    <!-- 给我们留言 -->
-    <lliuYan
-      maxWidth="1000"
-      v-if="contactData?.liuyanData"
-      :config="contactData?.liuyanData"
-    />
-    <!--  公司资质 -->
-    <!-- <Gongsizizhi
+      <!-- 给我们留言 -->
+      <lliuYan
+        maxWidth="1000"
+        v-if="contactData?.liuyanData"
+        :config="contactData?.liuyanData"
+      />
+      <!--  公司资质 -->
+      <!-- <Gongsizizhi
       :images="contactData.gongsizizhiData.gongsizizhiimages"
       :title="contactData.gongsizizhiData.gongsizizhiimages"
     /> -->
+    </div>
     <!-- 底部 -->
     <PageBottom :footerData="footerData" />
   </div>
@@ -40,6 +48,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { getWebDatas } from "@/api/general";
+import FloatingTabs from "@/components/FloatingTabs/index.vue";
 import aboutPageTop from "@/view/about/components/aboutPageTop.vue"; // 顶部关于万德
 import lianxifangshi from "./components/lianxifangshi.vue"; // 联系方式
 import ditu from "./components/ditu.vue"; // 地图
@@ -50,6 +59,15 @@ import yeWuFanWei from "./components/yeWuFanWei.vue"; // 业务范围
 // import Gongsizizhi from "./components/gongsizizhi.vue"; // 公司资质
 import PageBottom from "@/components/PageBottom/index.vue"; // 底部
 // import { contactData, footerData } from "@/util/mockData.js";
+const tabsData = ref([
+   { title: "首页", path: "/" },
+  { title: "关于万德", path: "/about" },
+  { title: "公司新闻", path: "/news_list" },
+  { title: "产品及服务", path: "/products" },
+  { title: "全景展示", path: "/services" },
+  { title: "联系我们", path: "/contact" },
+  { title: "ENGLISH", path: "/en" },
+]);
 const gongsizizhiData = {
   gongsizizhititle: "我们的资质及荣誉",
   gongsizizhiimages: [
@@ -141,6 +159,7 @@ const submitData = async () => {
     });
     footerData.value = resData.footerData;
     contactData.value = resData.contactData;
+    tabsData.value = resData.tabsData;
     console.log("提交结果:", resData);
   } catch (error) {
     console.error("提交失败:", error);
@@ -148,11 +167,21 @@ const submitData = async () => {
 };
 onMounted(() => {
   submitData();
+  // 延迟检查视频尺寸
 });
 </script>
 
 <style lang="scss" scoped>
+.home {
+  width: 100vw;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .homePage {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 </style>

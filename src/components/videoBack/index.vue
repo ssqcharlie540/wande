@@ -154,13 +154,21 @@ onBeforeUnmount(() => {
 });
 </script>
 
+<!-- 视频组件 VideoBackground.vue -->
 <style scoped>
 .video-background-container {
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  width: 100vw !important;
+  min-width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100%;
+  overflow: hidden !important;
   background-color: #000;
+  margin: 0 !important;
+  padding: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: translateX(0) !important;
 }
 
 .gray-overlay {
@@ -171,7 +179,7 @@ onBeforeUnmount(() => {
   height: 100%;
   background-color: rgba(100, 100, 100, 0.8);
   z-index: 1;
-  transition: opacity v-bind('props.fadeDuration + "ms"') ease-out;
+  /* transition: opacity v-bind('props.fadeDuration + "ms"') ease-out; */
 }
 
 .gray-overlay.fade-out {
@@ -179,21 +187,38 @@ onBeforeUnmount(() => {
   pointer-events: none;
 }
 
+/* 关键修改：确保视频填满整个容器 */
 .video-background {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
+  position: absolute !important;
+  width: 100vw !important;
+  min-width: 100vw !important;
+  max-width: none !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  object-fit: cover !important;
+  object-position: center center !important;
   z-index: 0;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity v-bind('props.fadeDuration + "ms"') ease-out;
 }
 
 .video-background.visible {
   opacity: 1;
+}
+/* 覆盖所有可能的外部样式 */
+.video-background-container * {
+  box-sizing: border-box !important;
+}
+/* 确保没有滚动条 */
+.video-background-container,
+.video-background {
+  overflow: hidden !important;
+}
+/* 确保视频元素本身没有限制 */
+video {
+  max-width: none !important;
+  max-height: none !important;
 }
 
 .content-overlay {
@@ -210,6 +235,12 @@ onBeforeUnmount(() => {
   color: white;
   text-align: center;
   box-sizing: border-box;
+  pointer-events: none; /* 允许点击穿透到视频 */
+}
+
+/* 内容需要可点击 */
+.content-overlay > * {
+  pointer-events: auto;
 }
 
 /* 滤镜效果 */

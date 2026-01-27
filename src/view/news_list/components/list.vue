@@ -62,23 +62,7 @@ const goToNewsDetail = (item) => {
   // });
   // 将对象转换成JSON字符串并存入sessionStorage
   sessionStorage.setItem("newsItemData", JSON.stringify(item));
-  const lang = localStorage.getItem("Language") || "zh";
-  if (lang === "en") {
-    router.push({
-      name: "ennews_detail", // 必须使用命名路由
-      // params: {
-      //   item: item,
-      // },
-    });
-    return;
-  } else {
-    router.push({
-      name: "news_detail", // 必须使用命名路由
-      // params: {
-      //   item: item,
-      // },
-    });
-  }
+  window.location.href = "/news_detail";
 };
 
 // 从时间字段中提取天数

@@ -1,20 +1,21 @@
 <template>
   <!-- 顶部tab -->
-  <FloatingTabs
+  <!-- <FloatingTabs
     v-if="showFloatingTabs"
     :tabsData="tabsData"
     @onLanguage="onLanguage"
-  />
-  <div class="content">
+  /> -->
+  <!-- <div class="content">
     <router-view :key="routeKey"></router-view>
-  </div>
+  </div> -->
+  <div></div>
 </template>
 
 <script setup>
 import { onMounted, ref, provide, watch } from "vue";
 import { useRoute } from "vue-router";
 import { getWebDatas } from "@/api/general";
-import FloatingTabs from "@/components/FloatingTabs/index.vue";
+// import FloatingTabs from "@/components/FloatingTabs/index.vue";
 const resDataNumber1 = ref(null);
 provide("resDataNumber1", resDataNumber1);
 // 添加路由key

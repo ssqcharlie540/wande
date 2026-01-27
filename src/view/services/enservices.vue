@@ -1,12 +1,20 @@
 <template>
-  <!-- 全景展示 -->
-  <div class="homePage">
-    <div>
-      <aboutPageTop :data="qjzsData?.aboutTopImg" />
+  <div class="home">
+    <!-- 浮动标签组件 -->
+    <FloatingTabs
+      v-if="tabsData && tabsData.length > 0"
+      :tabsData="tabsData"
+      @onLanguage="onLanguage"
+    />
+    <!-- 全景展示 -->
+    <div class="homePage">
+      <div>
+        <aboutPageTop :data="qjzsData?.aboutTopImg" />
+      </div>
+      <div><quanjingtu :title="qjzsData?.qjzsTitle" /></div>
+      <!-- 给我们留言 -->
+      <lliuYan v-if="qjzsData?.liuyanData" :config="qjzsData?.liuyanData" />
     </div>
-    <div><quanjingtu :title="qjzsData?.qjzsTitle" /></div>
-    <!-- 给我们留言 -->
-    <lliuYan v-if="qjzsData?.liuyanData" :config="qjzsData?.liuyanData" />
     <!-- 底部 -->
     <PageBottom :footerData="footerData" />
   </div>
@@ -15,13 +23,22 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { getWebDatas } from "@/api/general";
+import FloatingTabs from "@/components/FloatingTabs/index.vue";
 import aboutPageTop from "./components/aboutPageTop.vue"; // 顶部关于万德
 import lliuYan from "@/view/contact/components/lliuYan.vue"; // 给我们留言
 
 // import { qjzsData, footerData } from "@/util/mockData.js";
 import quanjingtu from "./components/quanjingtu.vue";
 import PageBottom from "@/components/PageBottom/index.vue"; // 底部
-
+const tabsData = ref([
+  { title: "HOME", path: "/en" },
+  { title: "ABOUT US", path: "/aboutEN" },
+  { title: "COMPANY NEWS", path: "/news_listEN" },
+  { title: "PRODUCT AND SERVICE", path: "/productsEN" },
+  { title: "FACTORY DISPLAY ", path: "/servicesEN" },
+  { title: "CONTACT", path: "/contactEN" },
+  { title: "中文", path: "/" },
+]);
 const footerData = ref();
 const qjzsData = ref();
 const submitData = async () => {
@@ -32,6 +49,7 @@ const submitData = async () => {
     });
     footerData.value = resData.footerData;
     qjzsData.value = resData.qjzsData;
+    tabsData.value = resData.tabsData;
     console.log("提交结果:", resData);
   } catch (error) {
     console.error("提交失败:", error);
@@ -43,7 +61,16 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.home {
+  width: 100vw;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .homePage {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 </style>

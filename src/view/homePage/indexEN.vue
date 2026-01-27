@@ -1,56 +1,65 @@
 <template>
-  <!-- 首页 -->
-  <div class="homePage">
-    <VideoBackground
-      ref="videoBackground"
-      :videoSrc="videoSrc"
-      :fadeDuration="3000"
-      :poster="poster"
-      :autoplay="false"
-      :loop="true"
-      :muted="true"
-      filter="none"
-    >
-      <!-- 在视频上方添加的内容 -->
-      <h2 class="title">{{ videoTitle }}</h2>
-      <h2 class="subtitle">{{ videoSubTitle }}</h2>
-      <!-- <el-icon><CaretRight /></el-icon> -->
-      <!-- 播放按钮 -->
-      <button class="play-button" @click="handlePlayClick">
-        <!-- <span class="play-icon" :class="{ playing: isVideoPlaying }"></span> -->
-        <el-icon v-if="!isVideoPlaying" style="font-size: 50px; color: #fff"
-          ><CaretRight
-        /></el-icon>
-        <img
-          v-if="isVideoPlaying"
-          src="@/assets/icon/pause2.png"
-          class="tab-logo"
-          alt="万德logo"
-        />
-        <!-- <el-icon><CaretRight /></el-icon> -->
-      </button>
-      <!-- <el-button :icon="CaretRight" circle size="large" /> -->
-    </VideoBackground>
+  <div class="home">
+    <!-- 浮动标签组件 -->
+    <FloatingTabs
+      v-if="tabsData && tabsData.length > 0"
+      :tabsData="tabsData"
+      @onLanguage="onLanguage"
+    />
 
-    <!-- 其他组件保持不变 -->
-    <homepageGongsi :pageData="homeData?.pageData" />
-    <HomePageChanpin
-      :title="homeData?.productsData?.title"
-      :product-items="homeData?.productsData?.productItems"
-    />
-    <HomePageChanpinYoushi
-      :title="homeData?.tabsData?.title"
-      :tabsData="homeData?.tabsData?.tabsItem"
-    />
-    <homePageContent2
-      :title="homeData?.contentData.title"
-      :contentData="homeData?.contentData?.contentItem"
-    />
-    <homePageHeZuoKeHu
-      :title="homeData?.heZuoKeHuData?.title"
-      :heZuoKeHuData="homeData?.heZuoKeHuData?.heZuoKeHuItem"
-    />
-    <lliuYan v-if="homeData?.liuyanData" :config="homeData?.liuyanData" />
+    <!-- 首页 -->
+    <div class="homePage">
+      <!-- 视频容器 -->
+      <div class="video-container">
+        <VideoBackground
+          ref="videoBackground"
+          :videoSrc="videoSrc"
+          :fadeDuration="3000"
+          :poster="poster"
+          :autoplay="false"
+          :loop="true"
+          :muted="true"
+          filter="none"
+        >
+          <!-- 在视频上方添加的内容 -->
+          <h2 class="title">{{ videoTitle }}</h2>
+          <h2 class="subtitle">{{ videoSubTitle }}</h2>
+          <!-- 播放按钮 -->
+          <button class="play-button" @click="handlePlayClick">
+            <el-icon v-if="!isVideoPlaying" style="font-size: 50px; color: #fff"
+              ><CaretRight
+            /></el-icon>
+            <img
+              v-if="isVideoPlaying"
+              src="/src/assets/icon/pause2.png"
+              class="tab-logo"
+              alt="万德logo"
+            />
+          </button>
+        </VideoBackground>
+      </div>
+      <!-- 其他组件 -->
+
+      <homepageGongsi :pageData="homeData?.pageData" />
+
+      <HomePageChanpin
+        :title="homeData?.productsData?.title"
+        :product-items="homeData?.productsData?.productItems"
+      />
+      <HomePageChanpinYoushi
+        :title="homeData?.tabsData?.title"
+        :tabsData="homeData?.tabsData?.tabsItem"
+      />
+      <homePageContent2
+        :title="homeData?.contentData.title"
+        :contentData="homeData?.contentData?.contentItem"
+      />
+      <homePageHeZuoKeHu
+        :title="homeData?.heZuoKeHuData?.title"
+        :heZuoKeHuData="homeData?.heZuoKeHuData?.heZuoKeHuItem"
+      />
+      <lliuYan v-if="homeData?.liuyanData" :config="homeData?.liuyanData" />
+    </div>
     <PageBottom :footerData="footerData" />
   </div>
 </template>
@@ -59,6 +68,7 @@
 import { onMounted, ref, inject, watch, getCurrentInstance } from "vue";
 import { getWebDatas } from "@/api/general";
 import { CaretRight } from "@element-plus/icons-vue";
+import FloatingTabs from "@/components/FloatingTabs/index.vue";
 import aliplayer from "./components/homePagealiplayer.vue";
 import lliuYan from "@/view/contact/components/lliuYan.vue";
 
@@ -72,9 +82,28 @@ import PageBottom from "@/components/PageBottom/index.vue";
 
 // const { proxy } = getCurrentInstance();
 
+// 从原 App.vue 迁移的变量和函数
+const showFloatingTabs = ref(true);
+// 检查是否需要显示浮动标签
+// const path = window.location.pathname;
+// if (path.includes("/getInquiries")) {
+//   showFloatingTabs.value = false;
+// }
+const tabsData = ref([
+  { title: "HOME", path: "/en" },
+  { title: "ABOUT US", path: "/aboutEN" },
+  { title: "COMPANY NEWS", path: "/news_listEN" },
+  { title: "PRODUCT AND SERVICE", path: "/productsEN" },
+  { title: "FACTORY DISPLAY ", path: "/servicesEN" },
+  { title: "CONTACT", path: "/contactEN" },
+  { title: "中文", path: "/" },
+]);
+
 const videoBackground = ref(null);
 const videoSrc = ref();
-const poster = ref("https://www.wandepack.com/api/getImage?image=logo_wande_1.png");
+const poster = ref(
+  "https://www.wandepack.com/api/getImage?image=logo_wande_1.png"
+);
 const videoTitle = ref("万德包装");
 const videoSubTitle = ref("智造守护·包装未来");
 const isVideoPlaying = ref(false);
@@ -103,12 +132,23 @@ const submitData = async () => {
     poster.value = "";
     videoTitle.value = resData.homeData?.videoData?.videoTitle;
     videoSubTitle.value = resData.homeData?.videoData?.videoSubTitle;
+    tabsData.value = resData.tabsData;
     console.log("提交结果:", resData);
   } catch (error) {
     console.error("提交失败:", error);
   }
 };
 
+// 语言切换函数（从原 App.vue 迁移）
+const onLanguage = (lang) => {
+  console.log("语言切换为:", lang);
+  localStorage.setItem("Language", lang);
+
+  // 调用 HTML 中的全局函数
+  if (typeof window.switchLanguage === "function") {
+    window.switchLanguage(lang);
+  }
+};
 onMounted(() => {
   console.log("aboutData:", aboutData);
   // 方式2：使用全局 $seo 方法
@@ -122,14 +162,63 @@ onMounted(() => {
 });
 </script>
 
+<!-- homepage index.vue -->
 <style scoped lang="scss">
+/* 重置所有边距 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.home {
+  width: 100vw;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .homePage {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  // position: relative;
+  // width: 100vw; /* 使用视口宽度 */
+  // margin: 0;
+  // padding: 0;
+  // overflow: hidden; /* 防止内容溢出 */
+  /* 关键：使用负 margin 拉回页面 */
+  // margin-top: 5022px !important;
+  /* 视频容器样式 */
+  .video-container {
+    width: 100vw;
+    height: calc(100vh - 60px); /* 减去浮动标签高度 */
+    position: relative;
+    left: 0;
+    right: 0;
+  }
+  /* 浮动标签样式 */
+  :deep(.floating-tabs) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    height: 60px;
+
+    /* 强制显示 */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+.components-section {
+  overflow: hidden;
 }
 
+/* 标题样式 */
 .title {
   font-weight: normal !important;
   font-size: 2rem;
@@ -156,6 +245,7 @@ onMounted(() => {
   animation: riseUp 1s ease-out forwards;
   animation-delay: 0.3s;
 }
+
 .play-button {
   margin-top: 20px;
   width: 60px;
@@ -192,17 +282,22 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .title {
-    font-size: 2rem;
-    animation: riseUp 0.8s ease-out forwards;
+    font-size: 1.5rem;
   }
-}
 
-.parentDiv {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  .subtitle {
+    font-size: 1.5rem;
+  }
+
+  .homePage {
+    :deep(.floating-tabs) {
+      height: 50px !important;
+    }
+
+    .video-container {
+      height: calc(100vh - 50px);
+      margin-top: 50px;
+    }
+  }
 }
 </style>

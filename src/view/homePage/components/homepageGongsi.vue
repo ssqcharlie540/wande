@@ -7,7 +7,7 @@
 
       <!-- 公司描述文字 -->
       <div class="company-description">
-        <span style="font-size: 1.5em;">{{ pageData?.description }}</span>
+        <span style="font-size: 1.5em">{{ pageData?.description }}</span>
         <span
           v-for="(word, index) in pageData?.highlightWords"
           :key="index"
@@ -87,10 +87,11 @@ const getImageUrl = (path) => {
 /* 保持原有的样式不变 */
 .homePageContent {
   width: 100%;
-  padding: 20px 0;
-  background-color: #fff;
+   background-color: #fff;
 }
 .container {
+  overflow: hidden;
+
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;

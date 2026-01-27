@@ -1,24 +1,36 @@
 <template>
-  <!-- 产品服务 -->
-  <div class="homePage">
-    <proPageTop :data="projectData?.proPageTopData" />
-    <!-- 我们的产品及优势 -->
-    <HomePageChanpin
-      :title="projectData?.productsData?.title"
-      :product-items="projectData?.productsData?.productItems"
+  <div class="home">
+    <!-- 浮动标签组件 -->
+    <FloatingTabs
+      v-if="tabsData && tabsData.length > 0"
+      :tabsData="tabsData"
+      @onLanguage="onLanguage"
     />
-    <!-- 产品优势 -->
-    <HomePageChanpinYoushi
-      :title="projectData?.tabsData?.title"
-      :tabsData="projectData?.tabsData?.tabsItem"
-    />
-    <div class="proPageBottomCla">
-      <!-- 图片切换 -->
-      <proPageBottom :Imagedata="projectData?.Imagedata" />
+    <!-- 产品服务 -->
+    <div class="homePage">
+      <!-- <div style="height: 1000px;width: 100px;background-color: aqua;">111</div> -->
+      <proPageTop :data="projectData?.proPageTopData" />
+      <!-- 我们的产品及优势 -->
+      <HomePageChanpin
+        :title="projectData?.productsData?.title"
+        :product-items="projectData?.productsData?.productItems"
+      />
+      <!-- 产品优势 -->
+      <HomePageChanpinYoushi
+        :title="projectData?.tabsData?.title"
+        :tabsData="projectData?.tabsData?.tabsItem"
+      />
+      <div class="proPageBottomCla">
+        <!-- 图片切换 -->
+        <proPageBottom :Imagedata="projectData?.Imagedata" />
+      </div>
+      <!-- 给我们留言 -->
+      <lliuYan
+        v-if="projectData?.liuyanData"
+        :config="projectData?.liuyanData"
+      />
+      <!-- <div style="background-color: aqua;">111</div> -->
     </div>
-    <!-- 给我们留言 -->
-    <lliuYan v-if="projectData?.liuyanData" :config="projectData?.liuyanData" />
-    <!-- <div style="background-color: aqua;">111</div> -->
     <!-- 底部 -->
     <PageBottom :footerData="footerData" />
   </div>
@@ -28,7 +40,7 @@
 import { onMounted, ref } from "vue";
 import { getWebDatas } from "@/api/general";
 import lliuYan from "@/view/contact/components/lliuYan.vue"; // 给我们留言
-
+import FloatingTabs from "@/components/FloatingTabs/index.vue";
 import proPageTop from "./components/proPageTop.vue";
 import proPageBottom from "./components/proPageBottom.vue";
 import HomePageChanpin from "@/view/homePage/components/homePageChanpin.vue"; // 我们的产品及优势
@@ -38,6 +50,15 @@ import PageBottom from "@/components/PageBottom/index.vue"; // 底部
 const loading = ref(false);
 const footerData = ref();
 const projectData = ref();
+const tabsData = ref([
+   { title: "首页", path: "/" },
+  { title: "关于万德", path: "/about" },
+  { title: "公司新闻", path: "/news_list" },
+  { title: "产品及服务", path: "/products" },
+  { title: "全景展示", path: "/services" },
+  { title: "联系我们", path: "/contact" },
+  { title: "ENGLISH", path: "/en" },
+]);
 const submitData = async () => {
   loading.value = true;
   console.log("提交数据中...");
@@ -49,6 +70,7 @@ const submitData = async () => {
     });
     footerData.value = resData.footerData;
     projectData.value = resData.projectData;
+    tabsData.value = resData.tabsData;
     loading.value = false;
 
     console.log("提交结果:", resData);
@@ -61,8 +83,17 @@ onMounted(() => {
 });
 </script>
 <style lang="scss" scoped>
+.home {
+  width: 100vw;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .homePage {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   .proPageBottomCla {
     height: calc(85vh);
   }
